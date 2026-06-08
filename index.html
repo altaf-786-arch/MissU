@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miss You By Altaf ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+min-height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff006e,#8338ec,#3a86ff,#06ffa5);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+padding:20px;
+}
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+.card{
+width:100%;
+max-width:700px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.2);
+border-radius:30px;
+padding:25px;
+color:#fff;
+text-align:center;
+box-shadow:0 10px 40px rgba(0,0,0,.25);
+z-index:2;
+}
+.title{
+font-size:3rem;
+font-weight:900;
+background:linear-gradient(90deg,#ff006e,#ffbe0b,#06ffa5,#3a86ff,#8338ec,#ff006e);
+background-size:400%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:rainbow 8s linear infinite;
+}
+@keyframes rainbow{
+100%{background-position:400%}
+}
+input,textarea{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:14px;
+}
+button{
+padding:14px 22px;
+border:none;
+border-radius:50px;
+background:linear-gradient(45deg,#ff4d6d,#ff006e);
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin:5px;
+}
+#viewer{display:none}
+#typed{font-size:1.2rem;line-height:1.8}
+.heart,.petal,.spark{
+position:fixed;
+pointer-events:none;
+animation:float linear forwards;
+}
+@keyframes float{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-120vh);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+<div id="creator">
+<h1 class="title">💖 Miss You By Altaf 💖</h1>
+<p>Create your special message ❤️</p>
+<input id="name" placeholder="Enter Name">
+<textarea id="msg" rows="5" placeholder="Write your message"></textarea>
+<button onclick="generateLink()">🔗 Generate Link</button>
+<div id="result"></div>
+</div>
+
+<div id="viewer">
+<h1 class="title">💖 Miss You By Altaf 💖</h1>
+<h2 id="person"></h2>
+<p id="typed"></p>
+</div>
+</div>
+
+<script>
+function particle(symbol,cls,size){
+let e=document.createElement("div");
+e.className=cls;
+e.innerHTML=symbol;
+e.style.left=Math.random()*100+"vw";
+e.style.bottom="-30px";
+e.style.fontSize=size+"px";
+e.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(e);
+setTimeout(()=>e.remove(),10000);
+}
+
+setInterval(()=>particle("❤️","heart",20+Math.random()*20),500);
+setInterval(()=>particle("🌹","petal",18+Math.random()*18),1200);
+setInterval(()=>particle("✨","spark",12+Math.random()*12),800);
+
+function generateLink(){
+let name=document.getElementById("name").value.trim();
+let msg=document.getElementById("msg").value.trim();
+
+if(!name || !msg){
+alert("Enter name and message");
+return;
+}
+
+let link=location.href.split("?")[0]+"?name="+
+encodeURIComponent(name)+"&msg="+encodeURIComponent(msg);
+
+document.getElementById("result").innerHTML=
+'<input id="linkBox" value="'+link+'" readonly><br>'+
+'<button onclick="copyLink()">📋 Copy Link</button>';
+}
+
+function copyLink(){
+let txt=document.getElementById("linkBox").value;
+navigator.clipboard.writeText(txt);
+alert("Link Copied ❤️");
+}
+
+const p=new URLSearchParams(location.search);
+
+if(p.has("name")){
+document.getElementById("creator").style.display="none";
+document.getElementById("viewer").style.display="block";
+
+document.getElementById("person").innerHTML=
+"Dear "+p.get("name")+" ❤️";
+
+let msg=p.get("msg");
+let i=0;
+
+(function type(){
+if(i<msg.length){
+document.getElementById("typed").innerHTML+=msg.charAt(i);
+i++;
+setTimeout(type,40);
+}
+})();
+}
+</script>
+</body>
+</html>
