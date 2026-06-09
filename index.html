@@ -1,427 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghost Resize Image</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
-
-body{
-background:#050505;
-color:#fff;
-min-height:100vh;
-overflow-x:hidden;
-}
-
-body::before{
-content:'';
-position:fixed;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle at center,
-rgba(0,255,170,.08),
-transparent 70%);
-animation:ghost 5s infinite alternate;
-z-index:-1;
-}
-
-@keyframes ghost{
-from{transform:scale(1);}
-to{transform:scale(1.2);}
-}
-
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
-
-.logo{
-text-align:center;
-font-size:42px;
-font-weight:bold;
-margin-top:20px;
-color:#00ffb3;
-text-shadow:0 0 20px #00ffb3;
-}
-
-.subtitle{
-text-align:center;
-opacity:.7;
-margin-bottom:30px;
-}
-
-.card{
-background:#0d0d0d;
-border:1px solid #1f1f1f;
-border-radius:20px;
-padding:25px;
-box-shadow:0 0 20px rgba(0,255,170,.15);
-}
-
-.upload-box{
-border:2px dashed #00ffb3;
-padding:40px;
-border-radius:15px;
-text-align:center;
-cursor:pointer;
-margin-bottom:20px;
-}
-
-.upload-box:hover{
-background:#111;
-}
-
-input[type=file]{
-display:none;
-}
-
-.preview{
-width:100%;
-margin-top:20px;
-display:none;
-border-radius:15px;
-}
-
-.row{
-display:flex;
-gap:10px;
-margin-top:15px;
-flex-wrap:wrap;
-}
-
-.row input,
-.row select{
-flex:1;
-padding:12px;
-background:#111;
-color:white;
-border:none;
-border-radius:10px;
-}
-
-.btn{
-width:100%;
-padding:14px;
-margin-top:15px;
-background:#00ffb3;
-border:none;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.btn:hover{
-opacity:.9;
-}
-
-.download{
-display:none;
-text-decoration:none;
-color:black;
-background:#00ffb3;
-padding:12px 20px;
-border-radius:10px;
-font-weight:bold;
-margin-top:15px;
-display:inline-block;
-}
-
-.info{
-margin-top:15px;
-opacity:.8;
-}
-
-footer{
-text-align:center;
-margin-top:30px;
-padding:20px;
-opacity:.7;
-font-size:14px;
-}
-
-.glow{
-color:#00ffb3;
-text-shadow:0 0 15px #00ffb3;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Resize Image - Resize & Compress</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #050505;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .glow-text {
+            text-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+        }
+        .glow-border:focus-within {
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+    </style>
 </head>
-
-<body>
-
-<div class="container">
-
-<div class="logo">👻 Ghost Resize Image</div>
-
-<div class="subtitle">
-Resize & Compress Images Like a Ghost
-</div>
-
-<div class="card">
-
-<label class="upload-box" for="imageInput">
-📤 Click Here To Upload Image
-</label>
-
-<input type="file" id="imageInput" accept="image/*">
-
-<img id="preview" class="preview">
-
-<div class="row">
-<input
-type="number"
-id="width"
-placeholder="Width (px)">
-<input
-type="number"
-id="height"
-placeholder="Height (px)">
-</div>
-
-<div class="row">
-
-<select id="sizeType">
-
-<option value="kb">
-Target Size (KB)
-</option>
-
-<option value="mb">
-Target Size (MB)
-</option>
-
-</select>
-
-<input
-type="number"
-id="targetSize"
-placeholder="Enter Size">
-
-</div>
-
-<button
-class="btn"
-onclick="processImage()">
-
-⚡ Resize & Compress
-
-</button>
-
-<div class="info" id="info">
-No image selected
-</div>
-
-<a
-id="downloadBtn"
-class="download">
-
-⬇ Download Image
-
-</a>
-
-</div>
-
-<footer>
-Created By
-<span class="glow">
-Ghost Hacker (AltafxRaja)
-</span>
-</footer>
-
-</div>
-
-<script>
-
-let selectedFile = null;
-
-const imageInput =
-document.getElementById("imageInput");
-
-const preview =
-document.getElementById("preview");
-
-imageInput.addEventListener(
-"change",
-function(e){
-
-selectedFile =
-e.target.files[0];
-
-if(!selectedFile) return;
-
-preview.src =
-URL.createObjectURL(selectedFile);
-
-preview.style.display = "block";
-
-document.getElementById("info")
-.innerHTML =
-"Original Size: " +
-(selectedFile.size/1024)
-.toFixed(2) +
-" KB";
-
-});
-
-function bytesToKB(bytes){
-return bytes/1024;
-}
-
-function bytesToMB(bytes){
-return bytes/1024/1024;
-}
-
-async function processImage(){
-
-if(!selectedFile){
-alert("Please Upload Image");
-return;
-}
-
-const widthInput =
-parseInt(
-document.getElementById("width").value
-);
-
-const heightInput =
-parseInt(
-document.getElementById("height").value
-);
-
-const sizeType =
-document.getElementById("sizeType").value;
-
-const targetValue =
-parseFloat(
-document.getElementById("targetSize").value
-);
-
-const img = new Image();
-
-img.onload = async function(){
-
-const canvas =
-document.createElement("canvas");
-
-const newWidth =
-widthInput || img.width;
-
-const newHeight =
-heightInput || img.height;
-
-canvas.width = newWidth;
-canvas.height = newHeight;
-
-const ctx =
-canvas.getContext("2d");
-
-ctx.drawImage(
-img,
-0,
-0,
-newWidth,
-newHeight
-);
-
-let targetBytes = 0;
-
-if(targetValue){
-
-if(sizeType === "kb"){
-targetBytes =
-targetValue * 1024;
-}else{
-targetBytes =
-targetValue * 1024 * 1024;
-}
-
-}
-
-let quality = 0.95;
-let blob;
-
-while(quality > 0.05){
-
-blob =
-await new Promise(resolve =>
-canvas.toBlob(
-resolve,
-"image/jpeg",
-quality
-)
-);
-
-if(
-targetBytes === 0 ||
-blob.size <= targetBytes
-){
-break;
-}
-
-quality -= 0.05;
-
-}
-
-preview.src =
-URL.createObjectURL(blob);
-
-const finalKB =
-(blob.size / 1024)
-.toFixed(2);
-
-const finalMB =
-(blob.size / 1024 / 1024)
-.toFixed(2);
-
-document.getElementById("info")
-.innerHTML =
-
-"✅ Final Size: " +
-finalKB +
-" KB (" +
-finalMB +
-" MB)<br>" +
-
-"📐 Resolution: " +
-newWidth +
-" × " +
-newHeight +
-
-"<br>🎯 Quality: " +
-Math.round(
-quality * 100
-) + "%";
-
-const downloadBtn =
-document.getElementById(
-"downloadBtn"
-);
-
-downloadBtn.href =
-URL.createObjectURL(blob);
-
-downloadBtn.download =
-"ghost-resized-image.jpg";
-
-downloadBtn.style.display =
-"inline-block";
-
-};
-
-img.src =
-URL.createObjectURL(selectedFile);
-
-}
-
-</script>
-
+<body class="text-gray-300 flex items-center justify-center p-4 min-h-screen">
+
+    <div class="w-full max-w-2xl bg-[#0d0d0d] border border-zinc-800 rounded-2xl p-6 shadow-2xl">
+        
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 justify-center text-emerald-400 font-bold text-3xl tracking-wider uppercase glow-text">
+                <i data-lucide="ghost" class="w-8 h-8 animate-pulse"></i>
+                Ghost Resize Image
+            </div>
+            <p class="text-xs text-zinc-500 mt-1 flex items-center justify-center gap-1">
+                <span>♦</span> Resize & Compress Images Like a Ghost <span>♦</span>
+            </p>
+        </div>
+
+        <div id="dropZone" class="border-2 border-dashed border-emerald-500/30 bg-emerald-500/5 rounded-xl p-8 text-center cursor-pointer hover:border-emerald-400 transition-all duration-300 mb-6 group">
+            <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp" class="hidden">
+            <div class="flex flex-col items-center gap-2">
+                <div class="p-3 bg-zinc-900 rounded-full border border-zinc-800 text-emerald-400 group-hover:scale-110 transition-transform">
+                    <i data-lucide="cloud-upload" class="w-8 h-8"></i>
+                </div>
+                <p class="font-medium text-zinc-200">Drag & Drop Image Here</p>
+                <span class="text-xs text-zinc-500">or</span>
+                <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-zinc-800 hover:border-emerald-500 transition-colors">
+                    Choose Image
+                </button>
+                <p class="text-[11px] text-zinc-500 mt-1">JPG, PNG, WEBP Supported</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-6 relative">
+            <div class="bg-zinc-950 border border-zinc-900 rounded-xl p-4 text-center h-48 flex flex-col items-center justify-center relative">
+                <span class="absolute top-3 left-3 text-xs font-medium text-zinc-400 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Original
+                </span>
+                <img id="origPreview" class="max-h-32 max-w-full rounded hidden object-contain">
+                <div id="origPlaceholder" class="text-zinc-600 flex flex-col items-center gap-1">
+                    <i data-lucide="image" class="w-10 h-10 stroke-1"></i>
+                    <p class="text-xs">No image selected</p>
+                </div>
+            </div>
+
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 border border-zinc-800 p-1.5 rounded-full text-emerald-400 z-10 hidden md:block">
+                <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+            </div>
+
+            <div class="bg-zinc-950 border border-zinc-900 rounded-xl p-4 text-center h-48 flex flex-col items-center justify-center relative">
+                <span class="absolute top-3 left-3 text-xs font-medium text-zinc-400 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Preview
+                </span>
+                <img id="destPreview" class="max-h-32 max-w-full rounded hidden object-contain">
+                <div id="destPlaceholder" class="text-zinc-600 flex flex-col items-center gap-1">
+                    <i data-lucide="image" class="w-10 h-10 stroke-1"></i>
+                    <p class="text-xs">No image selected</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-zinc-950/50 border border-zinc-900 p-4 rounded-xl">
+                <h3 class="text-sm font-semibold text-emerald-400 flex items-center gap-2 mb-3">
+                    <i data-lucide="maximize-2" class="w-4 h-4"></i> 1. Resize (Optional)
+                </h3>
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label class="block text-[11px] text-zinc-500 mb-1">Width (px)</label>
+                        <input type="number" id="widthInput" placeholder="e.g. 1080" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-sm text-zinc-200 outline-none glow-border focus:border-emerald-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-zinc-500 mb-1">Height (px)</label>
+                        <input type="number" id="heightInput" placeholder="e.g. 1080" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-sm text-zinc-200 outline-none glow-border focus:border-emerald-500/50">
+                    </div>
+                </div>
+                <label class="inline-flex items-center gap-2 text-xs text-zinc-400 cursor-pointer select-none">
+                    <input type="checkbox" id="aspectRatio" checked class="accent-emerald-500 rounded">
+                    Lock Aspect Ratio
+                </label>
+            </div>
+
+            <div class="bg-zinc-950/50 border border-zinc-900 p-4 rounded-xl">
+                <h3 class="text-sm font-semibold text-emerald-400 flex items-center gap-2 mb-3">
+                    <i data-lucide="file-archive" class="w-4 h-4"></i> 2. Compress
+                </h3>
+                <div class="grid grid-cols-5 gap-2 mb-4">
+                    <div class="col-span-2">
+                        <label class="block text-[11px] text-zinc-500 mb-1">Type</label>
+                        <select class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-zinc-200 outline-none">
+                            <option>Target Size</option>
+                        </select>
+                    </div>
+                    <div class="col-span-3">
+                        <label class="block text-[11px] text-zinc-500 mb-1">Value</label>
+                        <input type="number" id="targetSize" value="100" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-1.5 text-sm text-zinc-200 outline-none glow-border focus:border-emerald-500/50">
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 text-xs text-zinc-400">
+                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="unit" value="KB" checked class="accent-emerald-500"> KB</label>
+                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="unit" value="MB" class="accent-emerald-500"> MB</label>
+                </div>
+            </div>
+        </div>
+
+        <button id="processBtn" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-semibold py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/20 active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-sm cursor-pointer mb-6">
+            <i data-lucide="zap" class="w-4 h-4 fill-black"></i> Resize & Compress
+        </button>
+
+        <div class="bg-zinc-950/40 border border-zinc-900 rounded-xl p-4 mb-6">
+            <h4 class="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mb-4">
+                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Result Info
+            </h4>
+            <div class="grid grid-cols-3 gap-2 text-center mb-4">
+                <div class="bg-zinc-900/50 p-2 rounded-lg border border-zinc-900">
+                    <p class="text-[10px] text-zinc-500 uppercase">Original Size</p>
+                    <span id="infoOrigSize" class="text-sm font-medium text-zinc-300">-</span>
+                </div>
+                <div class="bg-zinc-900/50 p-2 rounded-lg border border-zinc-900">
+                    <p class="text-[10px] text-zinc-500 uppercase">Final Size</p>
+                    <span id="infoFinalSize" class="text-sm font-medium text-emerald-400">-</span>
+                </div>
+                <div class="bg-zinc-900/50 p-2 rounded-lg border border-zinc-900">
+                    <p class="text-[10px] text-zinc-500 uppercase">Resolution</p>
+                    <span id="infoResolution" class="text-sm font-medium text-zinc-300">-</span>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-[11px] text-zinc-500 mb-1">
+                    <span>Quality Used</span>
+                    <span id="qualityVal">-</span>
+                </div>
+                <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+                    <div id="qualityBar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-500 font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition-all cursor-not-allowed">
+            <i data-lucide="download" class="w-4 h-4"></i> Download Image
+        </button>
+
+        <div class="text-center mt-6 pt-4 border-t border-zinc-900 text-[11px] text-zinc-600 flex flex-col items-center gap-1">
+            <i data-lucide="ghost" class="w-4 h-4"></i>
+            <p>Created By <span class="text-zinc-400">Ghost Hacker (AltafxRaja)</span></p>
+        </div>
+
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // State variables
+        let originalImage = null;
+        let originalFileName = 'ghost_image';
+        let originalFileSize = 0;
+        let originalMimeType = 'image/jpeg';
+        let originalAspectRatio = 1;
+        let processedBlob = null;
+
+        // Elements
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const origPreview = document.getElementById('origPreview');
+        const origPlaceholder = document.getElementById('origPlaceholder');
+        const destPreview = document.getElementById('destPreview');
+        const destPlaceholder = document.getElementById('destPlaceholder');
+        
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const aspectRatioCheck = document.getElementById('aspectRatio');
+        const targetSizeInput = document.getElementById('targetSize');
+        
+        const processBtn = document.getElementById('processBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Info Elements
+        const infoOrigSize = document.getElementById('infoOrigSize');
+        const infoFinalSize = document.getElementById('infoFinalSize');
+        const infoResolution = document.getElementById('infoResolution');
+        const qualityVal = document.getElementById('qualityVal');
+        const qualityBar = document.getElementById('qualityBar');
+
+        // Drag & Drop Handlers
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.add('border-emerald-400', 'bg-emerald-500/10'); }, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.remove('border-emerald-400', 'bg-emerald-500/10'); }, false);
+        });
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length) handleFile(files[0]);
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        // Aspect Ratio sync
+        widthInput.addEventListener('input', () => {
+            if (aspectRatioCheck.checked && originalImage && widthInput.value) {
+                heightInput.value = Math.round(widthInput.value / originalAspectRatio);
+            }
+        });
+        heightInput.addEventListener('input', () => {
+            if (aspectRatioCheck.checked && originalImage && heightInput.value) {
+                widthInput.value = Math.round(heightInput.value * originalAspectRatio);
+            }
+        });
+
+        // Handle File Upload
+        function handleFile(file) {
+            if (!file.type.match('image.*')) {
+                alert('कृपया केवल इमेज (JPG, PNG, WEBP) फाइल चुनें!');
+                return;
+            }
+            originalFileName = file.name.split('.').slice(0, -1).join('.');
+            originalFileSize = file.size;
+            originalMimeType = file.type;
+
+            infoOrigSize.textContent = formatBytes(file.size);
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImage = new Image();
+                originalImage.onload = () => {
+                    originalAspectRatio = originalImage.width / originalImage.height;
+                    widthInput.value = originalImage.width;
+                    heightInput.value = originalImage.height;
+                    
+                    origPreview.src = e.target.result;
+                    origPreview.classList.remove('hidden');
+                    origPlaceholder.classList.add('hidden');
+                };
+                originalImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Processing Logic (Resize & Compression)
+        processBtn.addEventListener('click', () => {
+            if (!originalImage) {
+                alert('कृपया पहले एक इमेज अपलोड करें!');
+                return;
+            }
+
+            let targetWidth = parseInt(widthInput.value) || originalImage.width;
+            let targetHeight = parseInt(heightInput.value) || originalImage.height;
+
+            const unit = document.querySelector('input[name="unit"]:checked').value;
+            let targetSizeLimit = parseFloat(targetSizeInput.value) || 100;
+            if (unit === 'MB') targetSizeLimit *= 1024; // KB में बदलें
+
+            const canvas = document.createElement('canvas');
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImage, 0, 0, targetWidth, targetHeight);
+
+            // Binary Search algorithm to reach target size via quality modification
+            let minQuality = 0.01;
+            let maxQuality = 0.99;
+            let bestBlob = null;
+            let bestQuality = 0.8;
+            let iterations = 0;
+
+            function compressStep() {
+                let midQuality = (minQuality + maxQuality) / 2;
+                canvas.toBlob((blob) => {
+                    if (!blob) return;
+                    
+                    let currentSizeKB = blob.size / 1024;
+                    iterations++;
+
+                    // Save the best match within limits or default
+                    if (!bestBlob || Math.abs(currentSizeKB - targetSizeLimit) < Math.abs((bestBlob.size/1024) - targetSizeLimit)) {
+                        bestBlob = blob;
+                        bestQuality = midQuality;
+                    }
+
+                    if (currentSizeKB > targetSizeLimit) {
+                        maxQuality = midQuality; // Size is too big, lower quality
+                    } else {
+                        minQuality = midQuality; // Size is under limit, we can try higher quality
+                    }
+
+                    // Loop up to 7 times for perfect precision
+                    if (iterations < 7) {
+                        compressStep();
+                    } else {
+                        finalizeProcess(bestBlob, bestQuality, targetWidth, targetHeight);
+                    }
+                }, originalMimeType === 'image/png' ? 'image/jpeg' : originalMimeType, midQuality); // Convert PNG to JPG if heavy compression needed
+            }
+
+            compressStep();
+        });
+
+        function finalizeProcess(blob, quality, w, h) {
+            processedBlob = blob;
+            
+            // UI Updates
+            infoFinalSize.textContent = formatBytes(blob.size);
+            infoResolution.textContent = `${w} × ${h}`;
+            
+            const qualityPercent = Math.round(quality * 100);
+            qualityVal.textContent = `${qualityPercent}%`;
+            qualityBar.style.width = `${qualityPercent}%`;
+
+            // Display Preview
+            const url = URL.createObjectURL(blob);
+            destPreview.src = url;
+            destPreview.classList.remove('hidden');
+            destPlaceholder.classList.add('hidden');
+
+            // Enable Download Button
+            downloadBtn.disabled = false;
+            downloadBtn.classList.remove('border-zinc-800', 'text-zinc-500', 'cursor-not-allowed');
+            downloadBtn.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400', 'hover:bg-emerald-500', 'hover:text-black');
+        }
+
+        // Download Action
+        downloadBtn.addEventListener('click', () => {
+            if (!processedBlob) return;
+            const ext = originalMimeType.split('/')[1] || 'jpg';
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(processedBlob);
+            link.download = `${originalFileName}_ghost_resized.${ext}`;
+            link.click();
+        });
+
+        // Utility function to format sizes
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
 </body>
 </html>
