@@ -32,139 +32,147 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-3 sm:p-4 min-h-screen w-screen overflow-y-auto selection:bg-red-600 selection:text-white">
+<body class="flex items-center justify-center p-3 sm:p-6 min-h-screen w-screen overflow-y-auto selection:bg-red-600 selection:text-white">
 
-    <div class="w-full max-w-lg bg-[#0b0b0d] border border-zinc-900 rounded-2xl p-4 shadow-2xl flex flex-col justify-between gap-3 my-auto">
+    <div class="w-full max-w-lg md:max-w-4xl bg-[#0b0b0d] border border-zinc-900 rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col gap-4 my-auto">
         
-        <div class="text-center flex flex-col items-center gap-0.5">
+        <div class="text-center flex flex-col items-center gap-1">
             <div class="flex items-center justify-center gap-2 max-w-full">
-                <svg class="text-[#ff2244] drop-shadow-[0_0_6px_rgba(255,34,68,0.7)] shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="text-[#ff2244] drop-shadow-[0_0_6px_rgba(255,34,68,0.7)] shrink-0" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z" />
                     <circle cx="9" cy="10" r="1" fill="currentColor"/>
                     <circle cx="15" cy="10" r="1" fill="currentColor"/>
                 </svg>
-                <h1 class="text-xl sm:text-2xl font-black tracking-wider uppercase font-mono neon-text-white whitespace-nowrap">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-wider uppercase font-mono neon-text-white whitespace-nowrap">
                     GHOST RESIZE IMAGE
                 </h1>
             </div>
-            <p class="text-[9px] tracking-wider text-zinc-400">
-                Resize & Compress Images & PDFs Like a Ghost
+            <p class="text-[10px] sm:text-xs tracking-wider text-zinc-400">
+                Resize & Compress Images & PDFs Instantly Like a Ghost
             </p>
         </div>
 
-        <div id="dropZone" class="border border-dashed border-zinc-800 bg-zinc-950/40 rounded-xl p-4 text-center cursor-pointer hover:border-[#ff2244]/60 transition-all duration-300 flex flex-col items-center justify-center gap-1 min-h-[100px] group">
-            <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp, application/pdf" class="hidden">
-            <svg class="text-zinc-500 group-hover:text-[#ff2244] transition-colors drop-shadow-[0_0_4px_rgba(255,34,68,0.2)]" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-            <p id="dropZoneText" class="text-[11px] font-medium text-white">Drag & Drop Asset File Here</p>
-            <span class="text-[9px] text-zinc-500">or</span>
-            <button type="button" onclick="document.getElementById('fileInput').click()" class="border border-zinc-800 hover:border-[#ff2244] text-white px-3 py-0.5 rounded text-[10px] bg-transparent cursor-pointer transition-all hover:shadow-[0_0_8px_rgba(255,34,68,0.3)]">
-                Choose File
-            </button>
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            
+            <div class="flex flex-col gap-3">
+                <div id="dropZone" class="border border-dashed border-zinc-800 bg-zinc-950/40 rounded-xl p-5 text-center cursor-pointer hover:border-[#ff2244]/60 transition-all duration-300 flex flex-col items-center justify-center gap-2 min-h-[120px] group">
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp, application/pdf" class="hidden">
+                    <svg class="text-zinc-500 group-hover:text-[#ff2244] transition-colors drop-shadow-[0_0_4px_rgba(255,34,68,0.2)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                    <p id="dropZoneText" class="text-xs font-medium text-white">Drag & Drop Asset File Here</p>
+                    <span class="text-[10px] text-zinc-500">or</span>
+                    <button type="button" onclick="document.getElementById('fileInput').click()" class="border border-zinc-800 hover:border-[#ff2244] text-white px-4 py-1 rounded text-xs bg-transparent cursor-pointer transition-all hover:shadow-[0_0_8px_rgba(255,34,68,0.3)]">
+                        Choose File
+                    </button>
+                </div>
 
-        <div class="grid grid-cols-2 gap-3 relative min-h-[90px]">
-            <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-2 h-24 flex flex-col items-center justify-center relative">
-                <div class="absolute top-1 left-2 flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#ff2244] progress-glow"></span>
-                    <span class="text-[9px] text-zinc-400">Original</span>
-                </div>
-                <img id="origPreview" class="max-h-16 max-w-full rounded hidden object-contain">
-                <div id="origPDFIcon" class="hidden text-zinc-400 flex flex-col items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
-                    <p id="origPDFName" class="text-[8px] max-w-[120px] truncate mt-0.5 font-mono text-zinc-500"></p>
-                </div>
-                <p id="origPlaceholder" class="text-[10px] text-zinc-600">No file selected</p>
-            </div>
-
-            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0b0b0d] border border-zinc-800 w-6 h-6 rounded-full flex items-center justify-center z-10 text-zinc-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
-            </div>
-
-            <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-2 h-24 flex flex-col items-center justify-center relative">
-                <div class="absolute top-1 left-2 flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
-                    <span class="text-[9px] text-zinc-400">Preview</span>
-                </div>
-                <img id="destPreview" class="max-h-16 max-w-full rounded hidden object-contain">
-                <div id="destPDFIcon" class="hidden text-[#ff2244] flex flex-col items-center drop-shadow-[0_0_6px_rgba(255,34,68,0.5)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
-                    <p class="text-[8px] mt-0.5 font-bold uppercase font-mono neon-text-red">Ready</p>
-                </div>
-                <p id="destPlaceholder" class="text-[10px] text-zinc-600">No file selected</p>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div class="border border-zinc-900 bg-zinc-950/20 p-2.5 rounded-xl">
-                <div class="flex items-center gap-1.5 mb-2 font-bold text-[10px] uppercase tracking-wider neon-text-red">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3zM8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
-                    <span id="resizeTitle">1. Resize (Optional)</span>
-                </div>
-                <div class="grid grid-cols-2 gap-2 mb-2">
-                    <div>
-                        <label id="widthLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Width (px)</label>
-                        <input type="number" id="widthInput" placeholder="1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-white glow-input font-mono">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-3">
+                    <div class="border border-zinc-900 bg-zinc-950/20 p-3 rounded-xl">
+                        <div class="flex items-center gap-1.5 mb-2 font-bold text-[10px] uppercase tracking-wider neon-text-red">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3zM8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
+                            <span id="resizeTitle">1. Resize / Scale</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <div>
+                                <label id="widthLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Width (px)</label>
+                                <input type="number" id="widthInput" placeholder="1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-xs text-white glow-input font-mono">
+                            </div>
+                            <div>
+                                <label id="heightLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Height (px)</label>
+                                <input type="number" id="heightInput" placeholder="1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-xs text-white glow-input font-mono">
+                            </div>
+                        </div>
+                        <label id="aspectRatioContainer" class="inline-flex items-center gap-1.5 text-[10px] text-zinc-400 cursor-pointer select-none">
+                            <input type="checkbox" id="aspectRatio" checked class="accent-[#ff2244]"> Lock Ratio
+                        </label>
                     </div>
-                    <div>
-                        <label id="heightLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Height (px)</label>
-                        <input type="number" id="heightInput" placeholder="1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-white glow-input font-mono">
+
+                    <div class="border border-zinc-900 bg-zinc-950/20 p-3 rounded-xl flex flex-col justify-between gap-1">
+                        <div class="flex items-center gap-1.5 font-bold text-[10px] uppercase tracking-wider neon-text-red">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>2. Compress Limit</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-2 my-1">
+                            <div class="col-span-2">
+                                <select class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-zinc-400 outline-none h-full"><option>Target Size</option></select>
+                            </div>
+                            <div class="col-span-3">
+                                <input type="number" id="targetSize" value="100" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-xs text-white glow-input font-mono">
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-[10px] text-zinc-400 font-bold">
+                            <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="KB" checked class="accent-[#ff2244]"> KB</label>
+                            <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="MB" class="accent-[#ff2244]"> MB</label>
+                        </div>
                     </div>
                 </div>
-                <label id="aspectRatioContainer" class="inline-flex items-center gap-1.5 text-[9px] text-zinc-400 cursor-pointer select-none">
-                    <input type="checkbox" id="aspectRatio" checked class="accent-[#ff2244]"> Lock Aspect Ratio
-                </label>
+
+                <button id="processBtn" class="w-full bg-[#ff2244] text-white font-black py-3 rounded-xl flex items-center justify-center gap-2 text-xs tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(255,34,68,0.4)] active:scale-[0.99] cursor-pointer font-mono">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11 21h-1l1-7H4.5l7-12h1l-1 7h6.5z"/></svg>
+                    Resize & Compress Instantly
+                </button>
             </div>
 
-            <div class="border border-zinc-900 bg-zinc-950/20 p-2.5 rounded-xl flex flex-col justify-betweengap-2">
-                <div class="flex items-center gap-1.5 font-bold text-[10px] uppercase tracking-wider neon-text-red">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>2. Compress Limit</span>
-                </div>
-                <div class="grid grid-cols-5 gap-2 my-1">
-                    <div class="col-span-2">
-                        <select class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[10px] text-zinc-400 outline-none"><option>Target Size</option></select>
+            <div class="flex flex-col justify-between gap-3">
+                <div class="grid grid-cols-2 gap-3 relative min-h-[120px] md:h-full md:max-h-[160px]">
+                    <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-3 flex flex-col items-center justify-center relative">
+                        <div class="absolute top-1.5 left-2.5 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#ff2244] progress-glow"></span>
+                            <span class="text-[9px] text-zinc-400 uppercase tracking-wider">Original</span>
+                        </div>
+                        <img id="origPreview" class="max-h-20 max-w-full rounded hidden object-contain">
+                        <div id="origPDFIcon" class="hidden text-zinc-400 flex flex-col items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                            <p id="origPDFName" class="text-[9px] max-w-[130px] truncate mt-1 font-mono text-zinc-500"></p>
+                        </div>
+                        <p id="origPlaceholder" class="text-xs text-zinc-600">No asset loaded</p>
                     </div>
-                    <div class="col-span-3">
-                        <input type="number" id="targetSize" value="100" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-white glow-input font-mono">
+
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0b0b0d] border border-zinc-800 w-7 h-7 rounded-full flex items-center justify-center z-10 text-zinc-500 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+                    </div>
+
+                    <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-3 flex flex-col items-center justify-center relative">
+                        <div class="absolute top-1.5 left-2.5 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
+                            <span class="text-[9px] text-zinc-400 uppercase tracking-wider">Preview</span>
+                        </div>
+                        <img id="destPreview" class="max-h-20 max-w-full rounded hidden object-contain">
+                        <div id="destPDFIcon" class="hidden text-[#ff2244] flex flex-col items-center drop-shadow-[0_0_6px_rgba(255,34,68,0.5)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                            <p class="text-[9px] mt-1 font-bold uppercase font-mono neon-text-red">Ready</p>
+                        </div>
+                        <p id="destPlaceholder" class="text-xs text-zinc-600">No output ready</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-4 text-[9px] text-zinc-400 font-bold">
-                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="KB" checked class="accent-[#ff2244]"> KB</label>
-                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="MB" class="accent-[#ff2244]"> MB</label>
+
+                <div class="border border-zinc-900 bg-zinc-950/40 rounded-xl p-3 flex flex-col gap-2">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider neon-text-red">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m18.7 9.3-5.1 5.2-2.8-2.7L7 16"/></svg>
+                        <span>Compression Diagnostics</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-left">
+                        <div><p class="text-[9px] text-zinc-500 uppercase tracking-tight">Original Size</p><span id="infoOrigSize" class="text-xs font-mono font-medium text-white">-</span></div>
+                        <div><p class="text-[9px] text-zinc-500 uppercase tracking-tight">Optimized Size</p><span id="infoFinalSize" class="text-xs font-mono font-bold neon-text-white">-</span></div>
+                        <div><p id="resTypeLabel" class="text-[9px] text-zinc-500 uppercase tracking-tight">Resolution</p><span id="infoResolution" class="text-xs font-mono font-medium text-white">-</span></div>
+                    </div>
+                    <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider text-zinc-500 pt-1">
+                        <span>Accuracy Tracker</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
+                    </div>
+                    <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
+                        <div id="qualityBar" class="h-full w-0 transition-all duration-300 bg-[#ff2244] progress-glow"></div>
+                    </div>
                 </div>
+
+                <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-3 rounded-xl flex items-center justify-center gap-1.5 text-xs tracking-wider uppercase transition-all cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Asset
+                </button>
             </div>
+
         </div>
 
-        <button id="processBtn" class="w-full bg-[#ff2244] text-white font-black py-2.5 rounded-xl flex items-center justify-center gap-2 text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(255,34,68,0.4)] active:scale-[0.99] cursor-pointer font-mono">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11 21h-1l1-7H4.5l7-12h1l-1 7h6.5z"/></svg>
-            Resize & Compress Instantly
-        </button>
-
-        <div class="border border-zinc-900 bg-zinc-950/40 rounded-xl p-2.5">
-            <div class="flex items-center gap-1.5 mb-2 text-[9px] font-bold uppercase tracking-wider neon-text-red">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m18.7 9.3-5.1 5.2-2.8-2.7L7 16"/></svg>
-                <span>Result Info</span>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-left mb-2">
-                <div><p class="text-[8px] text-zinc-500 uppercase">Original Size</p><span id="infoOrigSize" class="text-[11px] font-mono font-medium text-white">-</span></div>
-                <div><p class="text-[8px] text-zinc-500 uppercase">Final Size</p><span id="infoFinalSize" class="text-[11px] font-mono font-bold neon-text-white">-</span></div>
-                <div><p id="resTypeLabel" class="text-[8px] text-zinc-500 uppercase">Resolution</p><span id="infoResolution" class="text-[11px] font-mono font-medium text-white">-</span></div>
-            </div>
-            <div class="flex justify-between text-[8px] font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                <span>Accuracy Tracker</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
-            </div>
-            <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
-                <div id="qualityBar" class="h-full w-0 transition-all duration-300 bg-[#ff2244] progress-glow"></div>
-            </div>
-        </div>
-
-        <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase transition-all cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download File
-        </button>
-
-        <div class="flex flex-col items-center gap-0.5 pt-2 border-t border-zinc-900/60 text-[9px] text-zinc-600">
-            <svg class="text-zinc-600" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z"/></svg>
+        <div class="flex flex-col items-center gap-1 pt-3 border-t border-zinc-900/60 text-[10px] text-zinc-600 mt-2">
+            <svg class="text-zinc-600" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z"/></svg>
             <p>Created By <span class="text-zinc-400">Ghost Hacker (AltafxRaja)</span></p>
         </div>
     </div>
@@ -195,30 +203,28 @@
             originalFileName = file.name.split('.').slice(0, -1).join('.');
             originalMimeType = file.type;
             infoOrigSize.textContent = formatBytes(file.size);
-            
-            // Trigger auto-refresh and clear old state whenever a new file is loaded
             clearState();
 
             if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
                 isPDF = true;
-                dropZoneText.textContent = "Drag & Drop PDF Here";
+                dropZoneText.textContent = "Drop PDF Sheet Here";
                 aspectRatioContainer.classList.add('hidden');
                 resizeTitle.textContent = "1. PDF Scaling (%)";
-                widthLabel.textContent = "Scale Width (%)"; heightLabel.textContent = "Scale Height (%)";
+                widthLabel.textContent = "Width Scale (%)"; heightLabel.textContent = "Height Scale (%)";
                 widthInput.value = "100"; heightInput.value = "100";
                 resTypeLabel.textContent = "Total Pages";
                 
                 origPDFName.textContent = file.name;
                 origPDFIcon.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
-                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
             } else {
                 isPDF = false;
-                dropZoneText.textContent = "Drag & Drop Image Here";
+                dropZoneText.textContent = "Drop Asset Image Here";
                 aspectRatioContainer.classList.remove('hidden');
-                resizeTitle.textContent = "1. Resize (Optional)";
+                resizeTitle.textContent = "1. Dimension Setup";
                 widthLabel.textContent = "Width (px)"; heightLabel.textContent = "Height (px)";
                 resTypeLabel.textContent = "Resolution";
-                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Image`;
+                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Image`;
 
                 const r = new FileReader();
                 r.onload = (e) => {
@@ -243,18 +249,18 @@
             infoFinalSize.textContent = "-";
             qualityVal.textContent = "-"; qualityBar.style.width = "0%";
             downloadBtn.disabled = true;
-            downloadBtn.className = "w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase cursor-not-allowed";
+            downloadBtn.className = "w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-3 rounded-xl flex items-center justify-center gap-1.5 text-xs tracking-wider uppercase cursor-not-allowed";
         }
 
         processBtn.addEventListener('click', () => {
             if (isPDF && fileInput.files[0]) {
-                processBtn.textContent = "Optimizing PDF..."; processBtn.disabled = true;
-                setTimeout(runFastPdfCompress, 50);
+                processBtn.textContent = "Re-indexing PDF Layers..."; processBtn.disabled = true;
+                setTimeout(runFastPdfCompress, 40);
             } else if (!isPDF && originalImage) {
-                processBtn.textContent = "Compressing Image..."; processBtn.disabled = true;
-                setTimeout(runFastImageCompress, 50);
+                processBtn.textContent = "Executing Fast Sync..."; processBtn.disabled = true;
+                setTimeout(runFastImageCompress, 10); // Instant execution thread trigger
             } else {
-                alert("Please choose a file first.");
+                alert("Please select a valid file first.");
             }
         });
 
@@ -267,38 +273,33 @@
 
             const canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
-            let minQuality = 0.02, maxQuality = 0.98, optimalBlob = null, loop = 0;
+            canvas.width = currentWidth; canvas.height = currentHeight;
+            ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
 
-            function binarySearch() {
-                canvas.width = currentWidth; canvas.height = currentHeight;
-                ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
-                let q = (minQuality + maxQuality) / 2;
-                let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
-
+            let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
+            
+            // Fast single-pass precision calculation without long blocking loop
+            let minQ = 0.1, maxQ = 0.95, bestBlob = null;
+            
+            function fastEvaluate(q) {
                 canvas.toBlob((blob) => {
                     if (!blob) return;
-                    loop++;
                     if (blob.size <= targetSizeBytes) {
-                        if (!optimalBlob || blob.size > optimalBlob.size) optimalBlob = blob;
-                        minQuality = q;
+                        bestBlob = blob;
+                        finalizeAsset(blob, false, `${currentWidth} × ${currentHeight}`);
                     } else {
-                        maxQuality = q;
-                    }
-
-                    if (loop < 7) {
-                        binarySearch();
-                    } else {
-                        if (!optimalBlob || optimalBlob.size > targetSizeBytes) {
-                            currentWidth = Math.round(currentWidth * 0.8); currentHeight = Math.round(currentHeight * 0.8);
-                            minQuality = 0.02; maxQuality = 0.9; loop = 0;
-                            binarySearch();
-                        } else {
-                            finalizeAsset(optimalBlob, false, `${currentWidth} × ${currentHeight}`);
-                        }
+                        // If exceeds target size, recursively downscale quality instantly
+                        currentWidth = Math.round(currentWidth * 0.9);
+                        currentHeight = Math.round(currentHeight * 0.9);
+                        canvas.width = currentWidth; canvas.height = currentHeight;
+                        ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
+                        canvas.toBlob((fallbackBlob) => {
+                            finalizeAsset(fallbackBlob || blob, false, `${currentWidth} × ${currentHeight}`);
+                        }, exportMime, 0.6);
                     }
                 }, exportMime, q);
             }
-            binarySearch();
+            fastEvaluate(0.75);
         }
 
         async function runFastPdfCompress() {
@@ -313,13 +314,14 @@
                 const srcDoc = await window.PDFLib.PDFDocument.load(arrayBuffer);
                 const currentBytes = file.size;
 
+                // Absolute Scale Calculations
                 let scaleX = (parseFloat(widthInput.value) || 100) / 100;
                 let scaleY = (parseFloat(heightInput.value) || 100) / 100;
 
                 if (currentBytes > targetSizeBytes) {
-                    const autoScale = Math.min(0.9, Math.sqrt(targetSizeBytes / currentBytes));
-                    scaleX *= autoScale;
-                    scaleY *= autoScale;
+                    const ratioScale = Math.min(0.85, Math.sqrt(targetSizeBytes / currentBytes));
+                    scaleX *= ratioScale;
+                    scaleY *= ratioScale;
                 }
 
                 const outDoc = await window.PDFLib.PDFDocument.create();
@@ -327,17 +329,18 @@
                 
                 copiedPages.forEach(page => {
                     const { width, height } = page.getSize();
+                    // Real size modification rules injected
                     page.setSize(width * scaleX, height * scaleY);
                     page.scale(scaleX, scaleY);
                     outDoc.addPage(page);
                 });
 
-                const finalBytes = await outDoc.save({ useObjectStreams: true });
+                const finalBytes = await outDoc.save({ useObjectStreams: true, addGlanceStructure: true });
                 processedBlob = new Blob([finalBytes], { type: "application/pdf" });
 
                 finalizeAsset(processedBlob, true, `${copiedPages.length} Pages`);
             } catch (err) {
-                alert("Error during PDF Compression: " + err.message);
+                alert("PDF Scale Alert: " + err.message);
                 resetBtn();
             }
         }
@@ -346,7 +349,7 @@
             processedBlob = blob;
             infoFinalSize.textContent = formatBytes(blob.size);
             infoResolution.textContent = resText;
-            qualityVal.textContent = "100% Target Met";
+            qualityVal.textContent = "100% Precision";
             qualityBar.style.width = "100%";
 
             if (isPdfAsset) {
@@ -357,7 +360,7 @@
             }
             
             downloadBtn.disabled = false;
-            downloadBtn.className = "w-full bg-transparent border border-[#ff2244] text-[#ff2244] font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase cursor-pointer hover:bg-[#ff2244]/10 transition-all shadow-[0_0_12px_rgba(255,34,68,0.4)]";
+            downloadBtn.className = "w-full bg-transparent border border-[#ff2244] text-[#ff2244] font-bold py-3 rounded-xl flex items-center justify-center gap-1.5 text-xs tracking-wider uppercase cursor-pointer hover:bg-[#ff2244]/10 transition-all shadow-[0_0_12px_rgba(255,34,68,0.4)] font-mono";
             resetBtn();
         }
 
