@@ -3,163 +3,425 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MISS YOU</title>
+<title>Ghost Resize Image</title>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
 body{
+background:#050505;
+color:#fff;
 min-height:100vh;
-background:linear-gradient(-45deg,#ff006e,#8338ec,#3a86ff,#06ffa5);
-background-size:400% 400%;
-animation:bg 12s ease infinite;
-overflow:hidden;
-display:flex;
-justify-content:center;
-align-items:center;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at center,
+rgba(0,255,170,.08),
+transparent 70%);
+animation:ghost 5s infinite alternate;
+z-index:-1;
+}
+
+@keyframes ghost{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+
+.container{
+max-width:900px;
+margin:auto;
 padding:20px;
 }
-@keyframes bg{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.card{
-width:100%;max-width:750px;
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,.2);
-border-radius:30px;
-padding:30px;
+
+.logo{
 text-align:center;
-color:#fff;
-box-shadow:0 15px 50px rgba(0,0,0,.25);
-z-index:2;
-}
-.title{
-font-size:4rem;font-weight:900;
-background:linear-gradient(90deg,#ff006e,#ffbe0b,#06ffa5,#3a86ff,#8338ec,#ff006e);
-background-size:400%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:rainbow 8s linear infinite;
-margin-bottom:15px;
-}
-@keyframes rainbow{100%{background-position:400%}}
-.subtitle{opacity:.9;margin-bottom:20px}
-.input-group{position:relative;margin:15px 0}
-input,textarea{
-width:100%;padding:16px;
-border:none;border-radius:18px;
-background:rgba(255,255,255,.18);
-color:#fff;font-size:16px;
-outline:none;
-}
-input::placeholder,textarea::placeholder{color:#eee}
-.btn{
-padding:14px 28px;
-border:none;border-radius:50px;
-background:linear-gradient(45deg,#ff006e,#ff4d6d);
-color:white;font-weight:700;
-cursor:pointer;
-box-shadow:0 0 25px rgba(255,0,110,.5);
-}
-#viewer{display:none}
-#person{font-size:2rem;margin:15px 0}
-#typed{font-size:1.2rem;line-height:1.8}
-.footer{
+font-size:42px;
+font-weight:bold;
 margin-top:20px;
+color:#00ffb3;
+text-shadow:0 0 20px #00ffb3;
+}
+
+.subtitle{
+text-align:center;
+opacity:.7;
+margin-bottom:30px;
+}
+
+.card{
+background:#0d0d0d;
+border:1px solid #1f1f1f;
+border-radius:20px;
+padding:25px;
+box-shadow:0 0 20px rgba(0,255,170,.15);
+}
+
+.upload-box{
+border:2px dashed #00ffb3;
+padding:40px;
+border-radius:15px;
+text-align:center;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+.upload-box:hover{
+background:#111;
+}
+
+input[type=file]{
+display:none;
+}
+
+.preview{
+width:100%;
+margin-top:20px;
+display:none;
+border-radius:15px;
+}
+
+.row{
+display:flex;
+gap:10px;
+margin-top:15px;
+flex-wrap:wrap;
+}
+
+.row input,
+.row select{
+flex:1;
+padding:12px;
+background:#111;
+color:white;
+border:none;
+border-radius:10px;
+}
+
+.btn{
+width:100%;
+padding:14px;
+margin-top:15px;
+background:#00ffb3;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn:hover{
+opacity:.9;
+}
+
+.download{
+display:none;
+text-decoration:none;
+color:black;
+background:#00ffb3;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+margin-top:15px;
+display:inline-block;
+}
+
+.info{
+margin-top:15px;
+opacity:.8;
+}
+
+footer{
+text-align:center;
+margin-top:30px;
+padding:20px;
+opacity:.7;
 font-size:14px;
-opacity:.95;
 }
-.footer span{
-font-weight:700;
-background:linear-gradient(90deg,#ff006e,#ffbe0b,#06ffa5,#3a86ff);
-background-size:400%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:rainbow 8s linear infinite;
-}
-.float{
-position:fixed;
-pointer-events:none;
-animation:up linear forwards;
-}
-@keyframes up{
-from{transform:translateY(0);opacity:1}
-to{transform:translateY(-120vh);opacity:0}
+
+.glow{
+color:#00ffb3;
+text-shadow:0 0 15px #00ffb3;
 }
 </style>
 </head>
+
 <body>
 
+<div class="container">
+
+<div class="logo">👻 Ghost Resize Image</div>
+
+<div class="subtitle">
+Resize & Compress Images Like a Ghost
+</div>
+
 <div class="card">
-<div id="creator">
-<h1 class="title">MISS YOU</h1>
-<p class="subtitle">Create a beautiful message ❤️</p>
 
-<div class="input-group">
-<input id="name" placeholder="✨ Enter Special Name">
+<label class="upload-box" for="imageInput">
+📤 Click Here To Upload Image
+</label>
+
+<input type="file" id="imageInput" accept="image/*">
+
+<img id="preview" class="preview">
+
+<div class="row">
+<input
+type="number"
+id="width"
+placeholder="Width (px)">
+<input
+type="number"
+id="height"
+placeholder="Height (px)">
 </div>
 
-<div class="input-group">
-<textarea id="msg" rows="5" placeholder="💌 Write your heartfelt message"></textarea>
+<div class="row">
+
+<select id="sizeType">
+
+<option value="kb">
+Target Size (KB)
+</option>
+
+<option value="mb">
+Target Size (MB)
+</option>
+
+</select>
+
+<input
+type="number"
+id="targetSize"
+placeholder="Enter Size">
+
 </div>
 
-<button class="btn" onclick="generateLink()">🔗 Generate Premium Link</button>
-<div id="result"></div>
+<button
+class="btn"
+onclick="processImage()">
 
-<div class="footer">Created With ❤️ By <span>Hacker Altaf</span></div>
+⚡ Resize & Compress
+
+</button>
+
+<div class="info" id="info">
+No image selected
 </div>
 
-<div id="viewer">
-<h1 class="title">MISS YOU</h1>
-<h2 id="person"></h2>
-<p id="typed"></p>
-<div class="footer">Created With ❤️ By <span>Hacker Altaf</span></div>
+<a
+id="downloadBtn"
+class="download">
+
+⬇ Download Image
+
+</a>
+
 </div>
+
+<footer>
+Created By
+<span class="glow">
+Ghost Hacker (AltafxRaja)
+</span>
+</footer>
+
 </div>
 
 <script>
-function make(sym){
-let e=document.createElement("div");
-e.className="float";
-e.innerHTML=sym;
-e.style.left=Math.random()*100+"vw";
-e.style.bottom="-30px";
-e.style.fontSize=(15+Math.random()*25)+"px";
-e.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(e);
-setTimeout(()=>e.remove(),10000);
-}
-setInterval(()=>make("❤️"),500);
-setInterval(()=>make("✨"),900);
-setInterval(()=>make("🌹"),1300);
 
-function generateLink(){
-let n=document.getElementById('name').value.trim();
-let m=document.getElementById('msg').value.trim();
-if(!n||!m){alert('Enter name and message');return;}
-let data=btoa(JSON.stringify({n:n,m:m}));
-let link=location.href.split('?')[0]+'?d='+data;
-document.getElementById('result').innerHTML=
-'<br><input id="linkBox" value="'+link+'" readonly><br><br>'+
-'<button class="btn" onclick="copyLink()">📋 Copy Link</button>';
-}
-function copyLink(){
-navigator.clipboard.writeText(document.getElementById('linkBox').value);
-alert('❤️ Link Copied');
+let selectedFile = null;
+
+const imageInput =
+document.getElementById("imageInput");
+
+const preview =
+document.getElementById("preview");
+
+imageInput.addEventListener(
+"change",
+function(e){
+
+selectedFile =
+e.target.files[0];
+
+if(!selectedFile) return;
+
+preview.src =
+URL.createObjectURL(selectedFile);
+
+preview.style.display = "block";
+
+document.getElementById("info")
+.innerHTML =
+"Original Size: " +
+(selectedFile.size/1024)
+.toFixed(2) +
+" KB";
+
+});
+
+function bytesToKB(bytes){
+return bytes/1024;
 }
 
-const p=new URLSearchParams(location.search);
-if(p.has('d')){
-document.getElementById('creator').style.display='none';
-document.getElementById('viewer').style.display='block';
-let d=JSON.parse(atob(p.get('d')));
-document.getElementById('person').innerHTML='💖 '+d.n+' 💖';
-let i=0,msg=d.m;
-(function type(){
-if(i<msg.length){
-document.getElementById('typed').innerHTML+=msg.charAt(i);
-i++;setTimeout(type,35);
+function bytesToMB(bytes){
+return bytes/1024/1024;
 }
-})();
+
+async function processImage(){
+
+if(!selectedFile){
+alert("Please Upload Image");
+return;
 }
+
+const widthInput =
+parseInt(
+document.getElementById("width").value
+);
+
+const heightInput =
+parseInt(
+document.getElementById("height").value
+);
+
+const sizeType =
+document.getElementById("sizeType").value;
+
+const targetValue =
+parseFloat(
+document.getElementById("targetSize").value
+);
+
+const img = new Image();
+
+img.onload = async function(){
+
+const canvas =
+document.createElement("canvas");
+
+const newWidth =
+widthInput || img.width;
+
+const newHeight =
+heightInput || img.height;
+
+canvas.width = newWidth;
+canvas.height = newHeight;
+
+const ctx =
+canvas.getContext("2d");
+
+ctx.drawImage(
+img,
+0,
+0,
+newWidth,
+newHeight
+);
+
+let targetBytes = 0;
+
+if(targetValue){
+
+if(sizeType === "kb"){
+targetBytes =
+targetValue * 1024;
+}else{
+targetBytes =
+targetValue * 1024 * 1024;
+}
+
+}
+
+let quality = 0.95;
+let blob;
+
+while(quality > 0.05){
+
+blob =
+await new Promise(resolve =>
+canvas.toBlob(
+resolve,
+"image/jpeg",
+quality
+)
+);
+
+if(
+targetBytes === 0 ||
+blob.size <= targetBytes
+){
+break;
+}
+
+quality -= 0.05;
+
+}
+
+preview.src =
+URL.createObjectURL(blob);
+
+const finalKB =
+(blob.size / 1024)
+.toFixed(2);
+
+const finalMB =
+(blob.size / 1024 / 1024)
+.toFixed(2);
+
+document.getElementById("info")
+.innerHTML =
+
+"✅ Final Size: " +
+finalKB +
+" KB (" +
+finalMB +
+" MB)<br>" +
+
+"📐 Resolution: " +
+newWidth +
+" × " +
+newHeight +
+
+"<br>🎯 Quality: " +
+Math.round(
+quality * 100
+) + "%";
+
+const downloadBtn =
+document.getElementById(
+"downloadBtn"
+);
+
+downloadBtn.href =
+URL.createObjectURL(blob);
+
+downloadBtn.download =
+"ghost-resized-image.jpg";
+
+downloadBtn.style.display =
+"inline-block";
+
+};
+
+img.src =
+URL.createObjectURL(selectedFile);
+
+}
+
 </script>
+
 </body>
 </html>
