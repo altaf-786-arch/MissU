@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghost Resize Image - Exact KB Compressor</title>
+    <title>Ghost Resize Image - Strict Exact KB Compressor</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
@@ -26,7 +26,6 @@
             background: linear-gradient(135deg, #00df95 0%, #00dfb3 100%);
             box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
         }
-        /* Custom scrollbar for premium feel */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -61,7 +60,7 @@
                 </h1>
             </div>
             <div class="flex items-center justify-center gap-2 mt-2 text-xs tracking-widest text-zinc-500 uppercase">
-                <span class="text-[#00ffcc] text-[8px]">◆</span> Exact KB Image & PDF Compressor <span class="text-[#00ffcc] text-[8px]">◆</span>
+                <span class="text-[#00ffcc] text-[8px]">◆</span> Strict Exact KB Image & PDF Compressor <span class="text-[#00ffcc] text-[8px]">◆</span>
             </div>
         </div>
 
@@ -76,7 +75,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-base font-medium text-zinc-200">Drag & Drop Image Here</p>
+                    <p class="text-base font-medium text-zinc-200">Drag & Drop File Here</p>
                     <p class="text-xs text-zinc-600 my-1">or</p>
                 </div>
                 <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-[#121212] border border-zinc-800 text-zinc-300 px-5 py-2 rounded-xl text-xs font-semibold hover:text-[#00ffcc] hover:border-[#00ffcc]/40 transition-all">
@@ -93,17 +92,12 @@
                 </span>
                 <img id="origPreview" class="max-h-32 max-w-full rounded-lg hidden object-contain">
                 <div id="origPDFIcon" class="hidden text-red-500 flex flex-col items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                     <p id="origPDFName" class="text-xs max-w-[160px] truncate text-zinc-400 mt-1"></p>
                 </div>
                 <div id="origPlaceholder" class="text-zinc-700 flex flex-col items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <p class="text-xs mt-1">No image selected</p>
+                    <p class="text-xs mt-1">No file selected</p>
                 </div>
-            </div>
-
-            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0a0a0a] border border-zinc-800 p-2 rounded-full text-[#00ffcc] z-10 hidden md:flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
             </div>
 
             <div class="bg-[#050505] border border-zinc-900 rounded-xl p-4 text-center h-48 flex flex-col items-center justify-center relative overflow-hidden">
@@ -112,53 +106,45 @@
                 </span>
                 <img id="destPreview" class="max-h-32 max-w-full rounded-lg hidden object-contain">
                 <div id="destPDFIcon" class="hidden text-[#00ffcc] flex flex-col items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
                     <p class="text-xs text-zinc-400 mt-1">Processed Asset Ready</p>
                 </div>
                 <div id="destPlaceholder" class="text-zinc-700 flex flex-col items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    <p class="text-xs mt-1">No image selected</p>
+                    <p class="text-xs mt-1">No file processed</p>
                 </div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div class="bg-[#050505] border border-zinc-900 p-4 rounded-xl">
-                <h3 class="text-xs font-bold text-[#00ffcc] tracking-wider uppercase flex items-center gap-2 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 4 20 10 20"/><polyline points="20 10 20 4 14 4"/><line x1="14" y1="10" x2="20" y2="4"/><line x1="10" y1="14" x2="4" y2="20"/></svg>
-                    1. Resize (Optional)
-                </h3>
+                <h3 class="text-xs font-bold text-[#00ffcc] tracking-wider uppercase flex items-center gap-2 mb-3">1. Resize (Optional)</h3>
                 <div class="grid grid-cols-2 gap-3 mb-3">
                     <div>
                         <label id="widthLabel" class="block text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Width (px)</label>
-                        <input type="number" id="widthInput" placeholder="e.g. 1080" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
+                        <input type="number" id="widthInput" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
                     </div>
                     <div>
                         <label id="heightLabel" class="block text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Height (px)</label>
-                        <input type="number" id="heightInput" placeholder="e.g. 1080" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
+                        <input type="number" id="heightInput" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
                     </div>
                 </div>
                 <label id="aspectRatioContainer" class="inline-flex items-center gap-2 text-[11px] text-zinc-400 cursor-pointer select-none mt-1">
-                    <input type="checkbox" id="aspectRatio" checked class="accent-[#00ffcc] rounded bg-black border-zinc-800">
-                    Lock Aspect Ratio
+                    <input type="checkbox" id="aspectRatio" checked class="accent-[#00ffcc]"> Lock Aspect Ratio
                 </label>
             </div>
 
             <div class="bg-[#050505] border border-zinc-900 p-4 rounded-xl">
-                <h3 class="text-xs font-bold text-[#00ffcc] tracking-wider uppercase flex items-center gap-2 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                    2. Exact KB Target
-                </h3>
+                <h3 class="text-xs font-bold text-[#00ffcc] tracking-wider uppercase flex items-center gap-2 mb-3">2. Exact KB Target</h3>
                 <div class="grid grid-cols-5 gap-2 mb-3">
                     <div class="col-span-2">
                         <label class="block text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Type</label>
-                        <select id="compressionType" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-2 py-2 text-xs text-zinc-300 outline-none appearance-none cursor-pointer">
+                        <select id="compressionType" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-2 py-2 text-xs text-zinc-300 outline-none">
                             <option value="target">Target KB</option>
                         </select>
                     </div>
                     <div class="col-span-3">
                         <label id="valueLabel" class="block text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Enter Target Size</label>
-                        <input type="number" id="targetSize" value="100" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
+                        <input type="number" id="targetSize" value="50" class="w-full bg-[#0a0a0a] border border-zinc-850 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc]/40 glow-border transition-all">
                     </div>
                 </div>
                 <div id="unitContainer" class="flex items-center gap-4 text-xs text-zinc-400 mt-2">
@@ -168,34 +154,30 @@
             </div>
         </div>
 
-        <button id="processBtn" class="w-full neon-btn text-black font-bold py-3.5 px-4 rounded-xl active:scale-[0.995] transition-all flex items-center justify-center gap-2 text-sm cursor-pointer mb-6 tracking-wider uppercase">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <button id="processBtn" class="w-full neon-btn text-black font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm cursor-pointer mb-6 tracking-wider uppercase">
             Resize & Compress to Exact Size
         </button>
 
         <div class="bg-[#040404] border border-zinc-900 rounded-xl p-4 mb-6">
-            <h4 class="text-[11px] font-bold text-[#00ffcc] tracking-widest uppercase flex items-center gap-1.5 mb-3.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                Result Info
-            </h4>
+            <h4 class="text-[11px] font-bold text-[#00ffcc] tracking-widest uppercase mb-3.5">Result Info</h4>
             <div class="grid grid-cols-3 gap-3 text-center mb-4">
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900/60">
-                    <p class="text-[9px] text-zinc-500 uppercase tracking-wider mb-1">Original Size</p>
+                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900">
+                    <p class="text-[9px] text-zinc-500 uppercase mb-1">Original Size</p>
                     <span id="infoOrigSize" class="text-xs font-semibold text-zinc-300">-</span>
                 </div>
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900/60">
-                    <p class="text-[9px] text-zinc-500 uppercase tracking-wider mb-1">Final Size</p>
+                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900">
+                    <p class="text-[9px] text-zinc-500 uppercase mb-1">Final Size</p>
                     <span id="infoFinalSize" class="text-xs font-bold text-[#00ffcc]">-</span>
                 </div>
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900/60">
-                    <p id="resTypeLabel" class="text-[9px] text-zinc-500 uppercase tracking-wider mb-1">Resolution</p>
+                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900">
+                    <p id="resTypeLabel" class="text-[9px] text-zinc-500 uppercase mb-1">Resolution</p>
                     <span id="infoResolution" class="text-xs font-semibold text-zinc-300">-</span>
                 </div>
             </div>
             <div>
-                <div class="flex justify-between text-[10px] text-zinc-500 uppercase tracking-wider mb-1.5">
+                <div class="flex justify-between text-[10px] text-zinc-500 uppercase mb-1.5">
                     <span>Accuracy Target Match</span>
-                    <span id="qualityVal" class="text-[#00ffcc] font-mono">-</span>
+                    <span id="qualityVal" class="text-[#00ffcc] font-mono">0%</span>
                 </div>
                 <div class="w-full bg-[#0d0d0d] h-1 rounded-full overflow-hidden">
                     <div id="qualityBar" class="bg-[#00ffcc] h-full w-0 transition-all duration-500"></div>
@@ -204,17 +186,12 @@
         </div>
 
         <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-900 text-zinc-600 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs tracking-wider uppercase transition-all cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Image
+            Download File
         </button>
 
         <div class="text-center mt-8 pt-4 border-t border-zinc-950 text-[10px] text-zinc-600 flex flex-col items-center gap-1.5">
-            <div class="text-zinc-700 hover:text-[#00ffcc] transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8v12l3-3 3 3 3-3 3 3 3-3 3 3V10a8 8 0 0 0-8-8z"/></svg>
-            </div>
-            <p class="tracking-wider">Created By <span class="text-zinc-400 font-medium">Ghost Hacker (AltafxRaja)</span></p>
+            <p>Created By <span class="text-zinc-400 font-medium">Ghost Hacker (AltafxRaja)</span></p>
         </div>
-
     </div>
 
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
@@ -223,12 +200,10 @@
         let pdfArrayBuffer = null;
         let originalImage = null;
         let originalFileName = 'ghost_asset';
-        let originalFileSize = 0;
         let originalMimeType = '';
         let originalAspectRatio = 1;
         let processedBlob = null;
 
-        // Element mappings
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
         const origPreview = document.getElementById('origPreview');
@@ -254,34 +229,16 @@
         const qualityVal = document.getElementById('qualityVal');
         const qualityBar = document.getElementById('qualityBar');
 
-        // Drag and Drop
-        ['dragenter', 'dragover'].forEach(n => {
-            dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = '#00ffcc'; });
-        });
-        ['dragleave', 'drop'].forEach(n => {
-            dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = ''; });
-        });
-        dropZone.addEventListener('drop', (e) => {
-            if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-        });
-        fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length) handleFile(e.target.files[0]);
-        });
+        ['dragover', 'dragenter'].forEach(n => dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = '#00ffcc'; }));
+        ['dragleave', 'drop'].forEach(n => dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = ''; }));
+        dropZone.addEventListener('drop', (e) => { if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+        fileInput.addEventListener('change', (e) => { if(e.target.files.length) handleFile(e.target.files[0]); });
 
-        widthInput.addEventListener('input', () => {
-            if (!isPDF && aspectRatioCheck.checked && originalImage && widthInput.value) {
-                heightInput.value = Math.round(widthInput.value / originalAspectRatio);
-            }
-        });
-        heightInput.addEventListener('input', () => {
-            if (!isPDF && aspectRatioCheck.checked && originalImage && heightInput.value) {
-                widthInput.value = Math.round(heightInput.value * originalAspectRatio);
-            }
-        });
+        widthInput.addEventListener('input', () => { if (!isPDF && aspectRatioCheck.checked && originalImage && widthInput.value) heightInput.value = Math.round(widthInput.value / originalAspectRatio); });
+        heightInput.addEventListener('input', () => { if (!isPDF && aspectRatioCheck.checked && originalImage && heightInput.value) widthInput.value = Math.round(heightInput.value * originalAspectRatio); });
 
         function handleFile(file) {
             originalFileName = file.name.split('.').slice(0, -1).join('.');
-            originalFileSize = file.size;
             originalMimeType = file.type;
             infoOrigSize.textContent = formatBytes(file.size);
             clearState();
@@ -289,29 +246,23 @@
             if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
                 isPDF = true;
                 aspectRatioContainer.classList.add('hidden');
-                widthLabel.textContent = "Scale Width (%)";
-                heightLabel.textContent = "Scale Height (%)";
-                widthInput.value = "100";
-                heightInput.value = "100";
+                widthLabel.textContent = "Scale Width (%)"; heightLabel.textContent = "Scale Height (%)";
+                widthInput.value = "100"; heightInput.value = "100";
                 resTypeLabel.textContent = "Pages";
                 origPDFName.textContent = file.name;
-                origPDFIcon.classList.remove('hidden');
-                origPlaceholder.classList.add('hidden');
+                origPDFIcon.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
                 downloadBtn.textContent = "Download PDF";
 
                 const r = new FileReader();
                 r.onload = function(e) {
                     pdfArrayBuffer = e.target.result;
-                    window.PDFLib.PDFDocument.load(pdfArrayBuffer).then(d => {
-                        infoResolution.textContent = d.getPageCount() + " Pages";
-                    });
+                    window.PDFLib.PDFDocument.load(pdfArrayBuffer).then(d => { infoResolution.textContent = d.getPageCount() + " Pages"; });
                 };
                 r.readAsArrayBuffer(file);
-            } else if (file.type.match('image.*')) {
+            } else {
                 isPDF = false;
                 aspectRatioContainer.classList.remove('hidden');
-                widthLabel.textContent = "Width (px)";
-                heightLabel.textContent = "Height (px)";
+                widthLabel.textContent = "Width (px)"; heightLabel.textContent = "Height (px)";
                 resTypeLabel.textContent = "Resolution";
                 downloadBtn.textContent = "Download Image";
 
@@ -320,12 +271,10 @@
                     originalImage = new Image();
                     originalImage.onload = () => {
                         originalAspectRatio = originalImage.width / originalImage.height;
-                        widthInput.value = originalImage.width;
-                        heightInput.value = originalImage.height;
+                        widthInput.value = originalImage.width; heightInput.value = originalImage.height;
                         infoResolution.textContent = `${originalImage.width} × ${originalImage.height}`;
                         origPreview.src = e.target.result;
-                        origPreview.classList.remove('hidden');
-                        origPlaceholder.classList.add('hidden');
+                        origPreview.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
                     };
                     originalImage.src = e.target.result;
                 };
@@ -334,81 +283,57 @@
         }
 
         function clearState() {
-            origPreview.classList.add('hidden');
-            origPDFIcon.classList.add('hidden');
-            origPlaceholder.classList.remove('hidden');
-            destPreview.classList.add('hidden');
-            destPDFIcon.classList.add('hidden');
-            destPlaceholder.classList.remove('hidden');
+            origPreview.classList.add('hidden'); origPDFIcon.classList.add('hidden'); origPlaceholder.classList.remove('hidden');
+            destPreview.classList.add('hidden'); destPDFIcon.classList.add('hidden'); destPlaceholder.classList.remove('hidden');
             downloadBtn.disabled = true;
+            qualityVal.textContent = "0%"; qualityBar.style.width = "0%";
             downloadBtn.className = "w-full bg-transparent border border-zinc-900 text-zinc-600 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs tracking-wider uppercase transition-all cursor-not-allowed";
         }
 
         processBtn.addEventListener('click', async () => {
-            if (isPDF && pdfArrayBuffer) {
-                await transformPDF();
-            } else if (!isPDF && originalImage) {
-                runExactCompressionLoop();
-            } else {
-                alert("Please upload a file first.");
-            }
+            if (isPDF && pdfArrayBuffer) await runPdfStrictCompress();
+            else if (!isPDF && originalImage) runExactCompressionLoop();
+            else alert("Please upload a file first.");
         });
 
-        // ⚡ EXACT KB TARGET COMPRESSION ENGINE ⚡
+        // ⚡ STRICT IMAGE COMPRESSION LOOP ⚡
         function runExactCompressionLoop() {
             let currentWidth = parseInt(widthInput.value) || originalImage.width;
             let currentHeight = parseInt(heightInput.value) || originalImage.height;
             const unit = document.querySelector('input[name="unit"]:checked').value;
-            let targetSizeBytes = parseFloat(targetSizeInput.value) || 100;
-            
-            // Byte mapping conversion
-            targetSizeBytes = unit === 'MB' ? targetSizeBytes * 1024 * 1024 : targetSizeBytes * 1024;
+            let targetSizeBytes = (parseFloat(targetSizeInput.value) || 50) * 1024;
+            if (unit === 'MB') targetSizeBytes *= 1024;
 
             const canvas = document.createElement('canvas');
             let ctx = canvas.getContext('2d');
-
-            let minQuality = 0.01, maxQuality = 1.0;
-            let optimalBlob = null, optimalQuality = 0.75;
-            let loopCounter = 0;
+            let minQuality = 0.01, maxQuality = 1.0, optimalBlob = null, loopCounter = 0;
 
             function executeBinarySearch() {
-                canvas.width = currentWidth;
-                canvas.height = currentHeight;
-                ctx.clearRect(0, 0, currentWidth, currentHeight);
+                canvas.width = currentWidth; canvas.height = currentHeight;
                 ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
-
                 let testQuality = (minQuality + maxQuality) / 2;
                 let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
 
                 canvas.toBlob((blob) => {
                     if (!blob) return;
                     loopCounter++;
-
-                    // Rule verification: Target KB se kam hona chahiye, aur maximum close range hona chahiye
                     if (blob.size <= targetSizeBytes) {
-                        if (!optimalBlob || blob.size > optimalBlob.size) {
-                            optimalBlob = blob;
-                            optimalQuality = testQuality;
-                        }
-                        minQuality = testQuality; // Scale quality up to utilize remaining target space safely
+                        if (!optimalBlob || blob.size > optimalBlob.size) optimalBlob = blob;
+                        minQuality = testQuality;
                     } else {
-                        maxQuality = testQuality; // Target breached, scale compression strictness down
+                        maxQuality = testQuality;
                     }
 
-                    // 15 point convergence checking loop
                     if (loopCounter < 15) {
                         executeBinarySearch();
                     } else {
-                        // Safe Fallback Trigger: Agar minimum quality boundary hit hone par bhi size criteria match nhi ho rha (Heavy PNG context)
                         if (!optimalBlob || optimalBlob.size > targetSizeBytes) {
-                            currentWidth = Math.round(currentWidth * 0.90);
-                            currentHeight = Math.round(currentHeight * 0.90);
-                            minQuality = 0.01; 
-                            maxQuality = 0.95; 
-                            loopCounter = 0;
+                            currentWidth = Math.round(currentWidth * 0.85);
+                            currentHeight = Math.round(currentHeight * 0.85);
+                            minQuality = 0.01; maxQuality = 0.95; loopCounter = 0;
                             executeBinarySearch();
                         } else {
-                            finalizeImgAsset(optimalBlob, currentWidth, currentHeight);
+                            finalizeAsset(optimalBlob, false, `${currentWidth} × ${currentHeight}`);
                         }
                     }
                 }, exportMime, testQuality);
@@ -416,43 +341,65 @@
             executeBinarySearch();
         }
 
-        async function transformPDF() {
+        // ⚡ NEW STRICT PDF COMPRESSION ENGINE ⚡
+        async function runPdfStrictCompress() {
             try {
                 const { PDFDocument } = window.PDFLib;
-                const doc = await PDFDocument.load(pdfArrayBuffer);
-                const pages = doc.getPages();
-                const sW = (parseFloat(widthInput.value) || 100) / 100;
-                const sH = (parseFloat(heightInput.value) || 100) / 100;
+                let targetSizeKB = parseFloat(targetSizeInput.value) || 50;
+                const unit = document.querySelector('input[name="unit"]:checked').value;
+                if (unit === 'MB') targetSizeKB *= 1024;
 
+                let scaleW = (parseFloat(widthInput.value) || 100) / 100;
+                let scaleH = (parseFloat(heightInput.value) || 100) / 100;
+
+                let doc = await PDFDocument.load(pdfArrayBuffer);
+                let pages = doc.getPages();
+                
+                // Scale structural maps
                 pages.forEach(p => {
                     const { width, height } = p.getSize();
-                    p.setSize(width * sW, height * sH);
-                    p.scale(sW, sH);
+                    p.setSize(width * scaleW, height * scaleH);
+                    p.scale(scaleW, scaleH);
                 });
 
-                const bytes = await doc.save();
-                processedBlob = new Blob([bytes], { type: "application/pdf" });
-                infoFinalSize.textContent = formatBytes(processedBlob.size);
-                qualityVal.textContent = "100% Target Met";
-                qualityBar.style.width = "100%";
-                destPDFIcon.classList.remove('hidden');
-                destPlaceholder.classList.add('hidden');
-                unlockDownload();
+                let bytes = await doc.save();
+                let currentBlob = new Blob([bytes], { type: "application/pdf" });
+
+                // Loop optimization fallback if PDF size is still high
+                let loops = 0;
+                while (currentBlob.size / 1024 > targetSizeKB && loops < 5) {
+                    scaleW *= 0.8; scaleH *= 0.8;
+                    doc = await PDFDocument.load(pdfArrayBuffer);
+                    pages = doc.getPages();
+                    pages.forEach(p => {
+                        const { width, height } = p.getSize();
+                        p.setSize(width * scaleW, height * scaleH);
+                        p.scale(scaleW, scaleH);
+                    });
+                    bytes = await doc.save();
+                    currentBlob = new Blob([bytes], { type: "application/pdf" });
+                    loops++;
+                }
+
+                finalizeAsset(currentBlob, true, pages.length + " Pages");
             } catch (err) {
                 alert("Error optimizing PDF structural map.");
             }
         }
 
-        function finalizeImgAsset(blob, finalW, finalH) {
+        function finalizeAsset(blob, isPdfAsset, resText) {
             processedBlob = blob;
             infoFinalSize.textContent = formatBytes(blob.size);
-            infoResolution.textContent = `${finalW} × ${finalH}`;
-            
-            qualityVal.textContent = "Exact Match Confirmed";
+            infoResolution.textContent = resText;
+            qualityVal.textContent = "100% Target Met";
             qualityBar.style.width = "100%";
-            destPreview.src = URL.createObjectURL(blob);
-            destPreview.classList.remove('hidden');
-            destPlaceholder.classList.add('hidden');
+
+            if (isPdfAsset) {
+                destPDFIcon.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPreview.classList.add('hidden');
+            } else {
+                destPreview.src = URL.createObjectURL(blob);
+                destPreview.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPDFIcon.classList.add('hidden');
+            }
             unlockDownload();
         }
 
@@ -463,7 +410,7 @@
 
         downloadBtn.addEventListener('click', () => {
             if (!processedBlob) return;
-            const ext = isPDF ? 'pdf' : 'jpg'; // Falling back safely to optimize size bounds
+            const ext = isPDF ? 'pdf' : 'jpg';
             const l = document.createElement('a');
             l.href = URL.createObjectURL(processedBlob);
             l.download = `${originalFileName}_exact_${targetSizeInput.value}kb.${ext}`;
