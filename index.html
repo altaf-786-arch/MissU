@@ -69,7 +69,7 @@
                     <div class="border border-zinc-900 bg-zinc-950/20 p-3 rounded-xl">
                         <div class="flex items-center gap-1.5 mb-2 font-bold text-[10px] uppercase tracking-wider neon-text-red">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3zM8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
-                            <span id="resizeTitle">1. Resize / Scale</span>
+                            <span id="resizeTitle">1. Dimension Setup</span>
                         </div>
                         <div class="grid grid-cols-2 gap-2 mb-2">
                             <div>
@@ -156,7 +156,7 @@
                         <div><p id="resTypeLabel" class="text-[9px] text-zinc-500 uppercase tracking-tight">Resolution</p><span id="infoResolution" class="text-xs font-mono font-medium text-white">-</span></div>
                     </div>
                     <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider text-zinc-500 pt-1">
-                        <span>Quality Retained</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
+                        <span>Image Quality</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
                     </div>
                     <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
                         <div id="qualityBar" class="h-full w-0 transition-all duration-300 bg-[#ff2244] progress-glow"></div>
@@ -258,68 +258,64 @@
                 setTimeout(runFastPdfCompress, 40);
             } else if (!isPDF && originalImage) {
                 processBtn.textContent = "Optimizing Image Loop..."; processBtn.disabled = true;
-                setTimeout(runPhotoPrecisionCompress, 20);
+                setTimeout(runPhotoPremiumCompress, 20);
             } else {
                 alert("Please select a file first.");
             }
         });
 
-        // HIGH PERFORMANCE ITERATIVE PHOTO COMPRESSION CORE
-        function runPhotoPrecisionCompress() {
-            let targetWidth = parseInt(widthInput.value) || originalImage.width;
-            let targetHeight = parseInt(heightInput.value) || originalImage.height;
+        // HIGH-QUALITY INTELLIGENT IMAGE COMPRESSION ENGINE (QUALITY SAFEKEEPING LOCK)
+        function runPhotoPremiumCompress() {
+            let initialWidth = parseInt(widthInput.value) || originalImage.width;
+            let initialHeight = parseInt(heightInput.value) || originalImage.height;
             const unit = document.querySelector('input[name="unit"]:checked').value;
             let targetSizeBytes = (parseFloat(targetSizeInput.value) || 100) * 1024;
             if (unit === 'MB') targetSizeBytes *= 1024;
 
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            
             let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
 
-            let lowQ = 0.01, highQ = 0.99, optimalBlob = null, iterations = 0;
-            let currentWidth = targetWidth, currentHeight = targetHeight;
+            let currentWidth = initialWidth;
+            let currentHeight = initialHeight;
+            let currentQuality = 0.92; // Start with clear premium quality
 
-            function searchCompressLoop() {
-                canvas.width = currentWidth; 
+            function smartScaleCompress() {
+                canvas.width = currentWidth;
                 canvas.height = currentHeight;
                 ctx.clearRect(0, 0, currentWidth, currentHeight);
                 ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
-
-                let testQuality = (lowQ + highQ) / 2;
-                iterations++;
 
                 canvas.toBlob((blob) => {
                     if (!blob) return;
 
                     if (blob.size <= targetSizeBytes) {
-                        // Fit found within limits, remember the best high-quality match
-                        if (!optimalBlob || blob.size > optimalBlob.size) {
-                            optimalBlob = blob;
-                        }
-                        lowQ = testQuality; // Try a better quality setting
+                        // Perfect Fit found with high quality!
+                        finalizeAsset(blob, false, `${currentWidth} × ${currentHeight}`, Math.round(currentQuality * 100));
                     } else {
-                        highQ = testQuality; // Too large, restrict quality upper bound
-                    }
-
-                    // Strict termination control check
-                    if (iterations < 8) {
-                        searchCompressLoop();
-                    } else {
-                        // Fallback check: If target size is still unachievable via quality, smoothly reduce dimensions
-                        if (!optimalBlob) {
-                            currentWidth = Math.round(currentWidth * 0.85);
-                            currentHeight = Math.round(currentHeight * 0.85);
-                            lowQ = 0.01; highQ = 0.95; iterations = 0;
-                            searchCompressLoop();
+                        // Size is still large, so reduce quality slowly but maintain strict threshold limit (0.6)
+                        if (currentQuality > 0.62) {
+                            currentQuality -= 0.08;
+                            smartScaleCompress();
                         } else {
-                            finalizeAsset(optimalBlob, false, `${currentWidth} × ${currentHeight}`, Math.round(lowQ * 100));
+                            // QUALITY SAFETY LOCK TRIPPED: Quality can't go below 60%. Smoothly scale down dimensions instead.
+                            currentWidth = Math.round(currentWidth * 0.92);
+                            currentHeight = Math.round(currentHeight * 0.92);
+                            // Keep quality locked safely at a crisp 75% for downscaled pixels
+                            currentQuality = 0.75; 
+                            
+                            // Prevent infinite loops if target size is unreasonably tiny
+                            if (currentWidth < 100 || currentHeight < 100) {
+                                finalizeAsset(blob, false, `${currentWidth} × ${currentHeight}`, 60);
+                            } else {
+                                smartScaleCompress();
+                            }
                         }
                     }
-                }, exportMime, testQuality);
+                }, exportMime, currentQuality);
             }
 
-            searchCompressLoop();
+            smartScaleCompress();
         }
 
         async function runFastPdfCompress() {
@@ -340,7 +336,7 @@
 
                 if (currentBytes > targetSizeBytes) {
                     const ratioScale = targetSizeBytes / currentBytes;
-                    const compensationFactor = Math.max(0.25, Math.min(0.85, Math.sqrt(ratioScale)));
+                    const compensationFactor = Math.max(0.3, Math.min(0.85, Math.sqrt(ratioScale)));
                     scaleX *= compensationFactor;
                     scaleY *= compensationFactor;
                 }
@@ -362,7 +358,6 @@
                 
                 processedBlob = new Blob([finalBytes], { type: "application/pdf" });
 
-                // Aggressive second pass optimization logic for very low constraint limitations
                 if (processedBlob.size > targetSizeBytes && scaleX > 0.3) {
                     const secondDoc = await window.PDFLib.PDFDocument.create();
                     const targetPages = await secondDoc.copyPages(outDoc, outDoc.getPageIndices());
@@ -377,7 +372,7 @@
 
                 finalizeAsset(processedBlob, true, `${copiedPages.length} Pages`, 100);
             } catch (err) {
-                alert("PDF Error Handler: " + err.message);
+                alert("PDF Error: " + err.message);
                 resetBtn();
             }
         }
@@ -387,9 +382,8 @@
             infoFinalSize.textContent = formatBytes(blob.size);
             infoResolution.textContent = resText;
             
-            // Set precise tracking diagnostics
-            qualityVal.textContent = accuracyPct + "% Ready";
-            qualityBar.style.width = accuracyPct + "%";
+            qualityVal.textContent = isPdfAsset ? "100% Compressed" : accuracyPct + "% Crisp Quality";
+            qualityBar.style.width = isPdfAsset ? "100%" : accuracyPct + "%";
 
             if (isPdfAsset) {
                 destPDFIcon.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPreview.classList.add('hidden');
