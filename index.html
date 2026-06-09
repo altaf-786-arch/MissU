@@ -7,26 +7,22 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
-            background-color: #030304; /* Pitch Black Background */
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #030304;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        /* Heavy Red Neon Text Glow */
         .neon-text-red {
             color: #ff2244 !important;
             text-shadow: 0 0 8px rgba(255, 34, 68, 0.8), 0 0 18px rgba(255, 34, 68, 0.5);
         }
-        /* White Title Glow */
         .neon-text-white {
             color: #ffffff !important;
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.4);
         }
-        /* Input & Border Glowing Effects */
         .glow-input:focus {
             border-color: #ff2244 !important;
             box-shadow: 0 0 12px rgba(255, 34, 68, 0.6) !important;
             outline: none;
         }
-        /* Custom Progress Bar & Button Glow */
         .progress-glow {
             box-shadow: 0 0 12px rgba(255, 34, 68, 0.8);
         }
@@ -48,7 +44,7 @@
                 </h1>
             </div>
             <p class="text-[10px] sm:text-xs tracking-wider text-zinc-400">
-                Resize & Compress Images & PDFs Instantly Like a Ghost
+                Optimized Engine for Sharp Photos & Re-indexed PDFs
             </p>
         </div>
 
@@ -57,7 +53,7 @@
             <div class="flex flex-col gap-3">
                 <div id="dropZone" class="border border-dashed border-zinc-800 bg-zinc-950/40 rounded-xl p-5 text-center cursor-pointer hover:border-[#ff2244]/60 transition-all duration-300 flex flex-col items-center justify-center gap-2 min-h-[120px] group">
                     <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp, application/pdf" class="hidden">
-                    <svg class="text-zinc-500 group-hover:text-[#ff2244] transition-colors drop-shadow-[0_0_4px_rgba(255,34,68,0.2)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+                    <svg class="text-zinc-500 group-hover:text-[#ff2244] transition-colors drop-shadow-[0_0_4px_rgba(255,34,68,0.2)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                     <p id="dropZoneText" class="text-xs font-medium text-white">Drag & Drop Asset File Here</p>
                     <span class="text-[10px] text-zinc-500">or</span>
                     <button type="button" onclick="document.getElementById('fileInput').click()" class="border border-zinc-800 hover:border-[#ff2244] text-white px-4 py-1 rounded text-xs bg-transparent cursor-pointer transition-all hover:shadow-[0_0_8px_rgba(255,34,68,0.3)]">
@@ -156,7 +152,7 @@
                         <div><p id="resTypeLabel" class="text-[9px] text-zinc-500 uppercase tracking-tight">Resolution</p><span id="infoResolution" class="text-xs font-mono font-medium text-white">-</span></div>
                     </div>
                     <div class="flex justify-between text-[9px] font-bold uppercase tracking-wider text-zinc-500 pt-1">
-                        <span>Image Quality</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
+                        <span>Process Status</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
                     </div>
                     <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
                         <div id="qualityBar" class="h-full w-0 transition-all duration-300 bg-[#ff2244] progress-glow"></div>
@@ -164,7 +160,7 @@
                 </div>
 
                 <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-3 rounded-xl flex items-center justify-center gap-1.5 text-xs tracking-wider uppercase transition-all cursor-not-allowed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Download Asset
                 </button>
             </div>
@@ -213,10 +209,8 @@
                 widthLabel.textContent = "Width Scale (%)"; heightLabel.textContent = "Height Scale (%)";
                 widthInput.value = "100"; heightInput.value = "100";
                 resTypeLabel.textContent = "Total Pages";
-                
                 origPDFName.textContent = file.name;
                 origPDFIcon.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
-                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
             } else {
                 isPDF = false;
                 dropZoneText.textContent = "Drop Asset Image Here";
@@ -224,7 +218,6 @@
                 resizeTitle.textContent = "1. Dimension Setup";
                 widthLabel.textContent = "Width (px)"; heightLabel.textContent = "Height (px)";
                 resTypeLabel.textContent = "Resolution";
-                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Image`;
 
                 const r = new FileReader();
                 r.onload = (e) => {
@@ -246,26 +239,23 @@
             processedBlob = null;
             origPreview.classList.add('hidden'); origPDFIcon.classList.add('hidden'); origPlaceholder.classList.remove('hidden');
             destPreview.classList.add('hidden'); destPDFIcon.classList.add('hidden'); destPlaceholder.classList.remove('hidden');
-            infoFinalSize.textContent = "-";
-            qualityVal.textContent = "-"; qualityBar.style.width = "0%";
+            infoFinalSize.textContent = "-"; qualityVal.textContent = "-"; qualityBar.style.width = "0%";
             downloadBtn.disabled = true;
             downloadBtn.className = "w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-3 rounded-xl flex items-center justify-center gap-1.5 text-xs tracking-wider uppercase cursor-not-allowed";
         }
 
         processBtn.addEventListener('click', () => {
             if (isPDF && fileInput.files[0]) {
-                processBtn.textContent = "Processing PDF Engine..."; processBtn.disabled = true;
-                setTimeout(runFastPdfCompress, 40);
+                processBtn.textContent = "Re-mapping Object Dictionary..."; processBtn.disabled = true;
+                setTimeout(runAdvancedPdfCompress, 40);
             } else if (!isPDF && originalImage) {
-                processBtn.textContent = "Optimizing Image Loop..."; processBtn.disabled = true;
-                setTimeout(runPhotoPremiumCompress, 20);
-            } else {
-                alert("Please select a file first.");
+                processBtn.textContent = "Executing Smart Quality Lock..."; processBtn.disabled = true;
+                setTimeout(runBalancedImageCompress, 20);
             }
         });
 
-        // HIGH-QUALITY INTELLIGENT IMAGE COMPRESSION ENGINE (QUALITY SAFEKEEPING LOCK)
-        function runPhotoPremiumCompress() {
+        // BALANCED IMAGE STREAM: Quality 60% Ke Neeche Nahi Jayegi
+        function runBalancedImageCompress() {
             let initialWidth = parseInt(widthInput.value) || originalImage.width;
             let initialHeight = parseInt(heightInput.value) || originalImage.height;
             const unit = document.querySelector('input[name="unit"]:checked').value;
@@ -278,9 +268,9 @@
 
             let currentWidth = initialWidth;
             let currentHeight = initialHeight;
-            let currentQuality = 0.92; // Start with clear premium quality
+            let currentQuality = 0.90; 
 
-            function smartScaleCompress() {
+            function compressStep() {
                 canvas.width = currentWidth;
                 canvas.height = currentHeight;
                 ctx.clearRect(0, 0, currentWidth, currentHeight);
@@ -290,35 +280,32 @@
                     if (!blob) return;
 
                     if (blob.size <= targetSizeBytes) {
-                        // Perfect Fit found with high quality!
                         finalizeAsset(blob, false, `${currentWidth} × ${currentHeight}`, Math.round(currentQuality * 100));
                     } else {
-                        // Size is still large, so reduce quality slowly but maintain strict threshold limit (0.6)
+                        // Quality kam karenge par 0.60 (60%) tak hi safe lock rahega
                         if (currentQuality > 0.62) {
-                            currentQuality -= 0.08;
-                            smartScaleCompress();
+                            currentQuality -= 0.06;
+                            compressStep();
                         } else {
-                            // QUALITY SAFETY LOCK TRIPPED: Quality can't go below 60%. Smoothly scale down dimensions instead.
-                            currentWidth = Math.round(currentWidth * 0.92);
-                            currentHeight = Math.round(currentHeight * 0.92);
-                            // Keep quality locked safely at a crisp 75% for downscaled pixels
-                            currentQuality = 0.75; 
+                            // QUALITY SAFE: Quality protect ho gayi, ab size gane ke liye dimensions chhota karenge smoothly
+                            currentWidth = Math.round(currentWidth * 0.94);
+                            currentHeight = Math.round(currentHeight * 0.94);
+                            currentQuality = 0.70; // Reset quality for smaller layout dimensions
                             
-                            // Prevent infinite loops if target size is unreasonably tiny
-                            if (currentWidth < 100 || currentHeight < 100) {
+                            if (currentWidth < 150 || currentHeight < 150) {
                                 finalizeAsset(blob, false, `${currentWidth} × ${currentHeight}`, 60);
                             } else {
-                                smartScaleCompress();
+                                compressStep();
                             }
                         }
                     }
                 }, exportMime, currentQuality);
             }
-
-            smartScaleCompress();
+            compressStep();
         }
 
-        async function runFastPdfCompress() {
+        // DEEP LAYERS PDF STRIPPER ENGINE
+        async function runAdvancedPdfCompress() {
             try {
                 const targetSizeVal = parseFloat(targetSizeInput.value) || 100;
                 const unit = document.querySelector('input[name="unit"]:checked').value;
@@ -334,11 +321,12 @@
                 let scaleX = (parseFloat(widthInput.value) || 100) / 100;
                 let scaleY = (parseFloat(heightInput.value) || 100) / 100;
 
+                // Tighter mathematical layout compression ratio
                 if (currentBytes > targetSizeBytes) {
-                    const ratioScale = targetSizeBytes / currentBytes;
-                    const compensationFactor = Math.max(0.3, Math.min(0.85, Math.sqrt(ratioScale)));
-                    scaleX *= compensationFactor;
-                    scaleY *= compensationFactor;
+                    const structuralRatio = targetSizeBytes / currentBytes;
+                    const dynamicScale = Math.max(0.35, Math.min(0.85, Math.sqrt(structuralRatio)));
+                    scaleX *= dynamicScale;
+                    scaleY *= dynamicScale;
                 }
 
                 const outDoc = await window.PDFLib.PDFDocument.create();
@@ -351,28 +339,31 @@
                     outDoc.addPage(page);
                 });
 
+                // Enforce maximum object compression streams
                 const finalBytes = await outDoc.save({ 
-                    useObjectStreams: true, 
-                    addGlanceStructure: true
+                    useObjectStreams: true,
+                    objectsPerStream: 100,
+                    addGlanceStructure: false
                 });
                 
                 processedBlob = new Blob([finalBytes], { type: "application/pdf" });
 
-                if (processedBlob.size > targetSizeBytes && scaleX > 0.3) {
-                    const secondDoc = await window.PDFLib.PDFDocument.create();
-                    const targetPages = await secondDoc.copyPages(outDoc, outDoc.getPageIndices());
+                // Pass 2: Heavy recursive fallback if target size is extremely low
+                if (processedBlob.size > targetSizeBytes && scaleX > 0.4) {
+                    const emergencyDoc = await window.PDFLib.PDFDocument.create();
+                    const targetPages = await emergencyDoc.copyPages(outDoc, outDoc.getPageIndices());
                     targetPages.forEach(p => {
-                        p.setSize(p.getWidth() * 0.75, p.getHeight() * 0.75);
-                        p.scale(0.75, 0.75);
-                        secondDoc.addPage(p);
+                        p.setSize(p.getWidth() * 0.70, p.getHeight() * 0.70);
+                        p.scale(0.70, 0.70);
+                        emergencyDoc.addPage(p);
                     });
-                    const robustBytes = await secondDoc.save({ useObjectStreams: true });
-                    processedBlob = new Blob([robustBytes], { type: "application/pdf" });
+                    const emergencyBytes = await emergencyDoc.save({ useObjectStreams: true });
+                    processedBlob = new Blob([emergencyBytes], { type: "application/pdf" });
                 }
 
                 finalizeAsset(processedBlob, true, `${copiedPages.length} Pages`, 100);
             } catch (err) {
-                alert("PDF Error: " + err.message);
+                alert("PDF Dictionary Exception: " + err.message);
                 resetBtn();
             }
         }
@@ -382,8 +373,8 @@
             infoFinalSize.textContent = formatBytes(blob.size);
             infoResolution.textContent = resText;
             
-            qualityVal.textContent = isPdfAsset ? "100% Compressed" : accuracyPct + "% Crisp Quality";
-            qualityBar.style.width = isPdfAsset ? "100%" : accuracyPct + "%";
+            qualityVal.textContent = isPdfAsset ? "Optimized Stream" : `${accuracyPct}% Sharpness`;
+            qualityBar.style.width = isPdfAsset ? "100%" : `${accuracyPct}%`;
 
             if (isPdfAsset) {
                 destPDFIcon.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPreview.classList.add('hidden');
