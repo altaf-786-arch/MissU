@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghost Resize Image - Premium Red Edition</title>
-    <!-- Tailwind CSS Engine -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
-            background-color: #030304; /* Pitch Black Background like 1000255480_3.png */
+            background-color: #030304; /* Pitch Black Background */
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             overflow: hidden; /* Strict Screen Fitting Lock */
         }
@@ -40,13 +39,10 @@
 </head>
 <body class="flex items-center justify-center p-2 sm:p-4 h-screen w-screen selection:bg-red-600 selection:text-white">
 
-    <!-- Main Container following 1000255480_3.png exactly -->
     <div class="w-full max-w-lg bg-[#0b0b0d] border border-zinc-900 rounded-2xl p-4 shadow-2xl h-full max-h-[96vh] flex flex-col justify-between overflow-hidden">
         
-        <!-- Header Section -->
         <div class="text-center flex flex-col items-center gap-0.5">
             <div class="flex items-center justify-center gap-2">
-                <!-- Ghost Icon -->
                 <svg class="text-[#ff2244] drop-shadow-[0_0_6px_rgba(255,34,68,0.6)]" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z" />
                     <circle cx="9" cy="10" r="1" fill="currentColor"/>
@@ -57,77 +53,77 @@
                 </h1>
             </div>
             <p class="text-[9px] tracking-wider text-zinc-400">
-                Resize & Compress Images Like a Ghost
+                Resize & Compress Images & PDFs Like a Ghost
             </p>
         </div>
 
-        <!-- Drag & Drop Zone -->
         <div id="dropZone" class="border border-dashed border-zinc-800 bg-zinc-950/40 rounded-xl p-3 text-center cursor-pointer hover:border-[#ff2244]/60 transition-all duration-300 flex flex-col items-center justify-center gap-1 max-h-[105px] my-1 group">
             <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp, application/pdf" class="hidden">
             <svg class="text-zinc-500 group-hover:text-[#ff2244] transition-colors" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
-            <p class="text-[11px] font-medium text-white">Drag & Drop Image Here</p>
+            <p id="dropZoneText" class="text-[11px] font-medium text-white">Drag & Drop Asset File Here</p>
             <span class="text-[9px] text-zinc-500">or</span>
             <button type="button" onclick="document.getElementById('fileInput').click()" class="border border-zinc-800 hover:border-[#ff2244] text-white px-3 py-0.5 rounded text-[10px] bg-transparent cursor-pointer transition-all">
-                Choose Image
+                Choose File
             </button>
         </div>
 
-        <!-- Previews Grid Layout with Swap Center Button -->
         <div class="grid grid-cols-2 gap-3 my-1 relative max-h-[95px]">
-            <!-- Original Box -->
             <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-2 h-22 flex flex-col items-center justify-center relative">
                 <div class="absolute top-1 left-2 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#ff2244]"></span>
                     <span class="text-[9px] text-zinc-400">Original</span>
                 </div>
                 <img id="origPreview" class="max-h-14 max-w-full rounded hidden object-contain">
-                <p id="origPlaceholder" class="text-[10px] text-zinc-600">No image selected</p>
+                <div id="origPDFIcon" class="hidden text-zinc-400 flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                    <p id="origPDFName" class="text-[8px] max-w-[100px] truncate mt-0.5 font-mono"></p>
+                </div>
+                <p id="origPlaceholder" class="text-[10px] text-zinc-600">No file selected</p>
             </div>
 
-            <!-- Central Intersect Icon -->
             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0b0b0d] border border-zinc-800 w-6 h-6 rounded-full flex items-center justify-center z-10 text-zinc-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
             </div>
 
-            <!-- Preview Box -->
             <div class="bg-zinc-950/60 border border-zinc-900 rounded-xl p-2 h-22 flex flex-col items-center justify-center relative">
                 <div class="absolute top-1 left-2 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-zinc-600"></span>
                     <span class="text-[9px] text-zinc-400">Preview</span>
                 </div>
                 <img id="destPreview" class="max-h-14 max-w-full rounded hidden object-contain">
-                <p id="destPlaceholder" class="text-[10px] text-zinc-600">No image selected</p>
+                <div id="destPDFIcon" class="hidden text-[#ff2244] flex flex-col items-center drop-shadow-[0_0_6px_rgba(255,34,68,0.5)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                    <p class="text-[8px] mt-0.5 font-bold uppercase font-mono">Ready</p>
+                </div>
+                <p id="destPlaceholder" class="text-[10px] text-zinc-600">No file selected</p>
             </div>
         </div>
 
-        <!-- Inputs Tools Configurations Layout -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-1">
-            <!-- Section 1: Resize -->
             <div class="border border-zinc-900 bg-zinc-950/20 p-2.5 rounded-xl">
                 <div class="flex items-center gap-1.5 mb-2 text-[#ff2244] font-bold text-[10px] uppercase tracking-wider">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3zM8 3v18M16 3v18M3 8h18M3 16h18"/></svg>
-                    <span>1. Resize (Optional)</span>
+                    <span id="resizeTitle">1. Resize (Optional)</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-2">
                     <div>
-                        <label class="block text-[8px] text-zinc-500 uppercase mb-0.5">Width (px)</label>
+                        <label id="widthLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Width (px)</label>
                         <input type="number" id="widthInput" placeholder="e.g. 1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-white glow-input font-mono">
                     </div>
                     <div>
-                        <label class="block text-[8px] text-zinc-500 uppercase mb-0.5">Height (px)</label>
+                        <label id="heightLabel" class="block text-[8px] text-zinc-500 uppercase mb-0.5">Height (px)</label>
                         <input type="number" id="heightInput" placeholder="e.g. 1080" class="w-full bg-zinc-950 border border-zinc-900 rounded p-1 text-[11px] text-white glow-input font-mono">
                     </div>
                 </div>
-                <label class="inline-flex items-center gap-1.5 text-[9px] text-zinc-400 cursor-pointer select-none">
+                <label id="aspectRatioContainer" class="inline-flex items-center gap-1.5 text-[9px] text-zinc-400 cursor-pointer select-none">
                     <input type="checkbox" id="aspectRatio" checked class="accent-[#ff2244]"> Lock Aspect Ratio
                 </label>
             </div>
 
-            <!-- Section 2: Compress -->
             <div class="border border-zinc-900 bg-zinc-950/20 p-2.5 rounded-xl flex flex-col justify-between">
                 <div class="flex items-center gap-1.5 text-[#ff2244] font-bold text-[10px] uppercase tracking-wider">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>2. Compress</span>
+                    <span>2. Compress Limit</span>
                 </div>
                 <div class="grid grid-cols-5 gap-2 my-1">
                     <div class="col-span-2">
@@ -144,13 +140,11 @@
             </div>
         </div>
 
-        <!-- Master Bright Action Process Trigger Button (Solid Red Premium Glow) -->
         <button id="processBtn" class="w-full bg-[#ff2244] text-white font-black py-2 rounded-xl flex items-center justify-center gap-2 text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(255,34,68,0.4)] active:scale-[0.99] cursor-pointer my-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11 21h-1l1-7H4.5l7-12h1l-1 7h6.5z"/></svg>
-            Resize & Compress
+            Resize & Compress Instantly
         </button>
 
-        <!-- Result Analytics Card Info Frame Section -->
         <div class="border border-zinc-900 bg-zinc-950/40 rounded-xl p-2.5 my-1">
             <div class="flex items-center gap-1.5 mb-2 text-[#ff2244] text-[9px] font-bold uppercase tracking-wider">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m18.7 9.3-5.1 5.2-2.8-2.7L7 16"/></svg>
@@ -159,39 +153,37 @@
             <div class="grid grid-cols-3 gap-2 text-left mb-2">
                 <div><p class="text-[8px] text-zinc-500 uppercase">Original Size</p><span id="infoOrigSize" class="text-[11px] font-mono font-medium text-white">-</span></div>
                 <div><p class="text-[8px] text-zinc-500 uppercase">Final Size</p><span id="infoFinalSize" class="text-[11px] font-mono font-bold neon-text-white">-</span></div>
-                <div><p class="text-[8px] text-zinc-500 uppercase">Resolution</p><span id="infoResolution" class="text-[11px] font-mono font-medium text-white">-</span></div>
+                <div><p id="resTypeLabel" class="text-[8px] text-zinc-500 uppercase">Resolution</p><span id="infoResolution" class="text-[11px] font-mono font-medium text-white">-</span></div>
             </div>
             <div class="flex justify-between text-[8px] font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                <span>Quality Used</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
+                <span>Accuracy Tracker</span> <span id="qualityVal" class="font-mono text-zinc-400">-</span>
             </div>
-            <!-- Glow Red Accuracy Progress Bar Area -->
             <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
                 <div id="qualityBar" class="h-full w-0 transition-all duration-300 bg-[#ff2244] progress-glow"></div>
             </div>
         </div>
 
-        <!-- Download Action Trigger Interface Control Frame Button -->
         <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase transition-all cursor-not-allowed">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Image
+            Download File
         </button>
 
-        <!-- Footer Segment Metadata System Line -->
         <div class="flex flex-col items-center gap-0.5 pt-1.5 border-t border-zinc-900/60 text-[9px] text-zinc-600">
             <svg class="text-zinc-600" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z"/></svg>
             <p>Created By <span class="text-zinc-400">Ghost Hacker (AltafxRaja)</span></p>
         </div>
     </div>
 
-    <!-- Processing Architecture System Layer Logic Codes -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script>
-        let originalImage = null, originalFileName = 'ghost_asset', originalMimeType = '', originalAspectRatio = 1, processedBlob = null;
+        let isPDF = false, originalImage = null, originalFileName = 'ghost_asset', originalMimeType = '', originalAspectRatio = 1, processedBlob = null;
 
-        const fileInput = document.getElementById('fileInput'), dropZone = document.getElementById('dropZone');
-        const origPreview = document.getElementById('origPreview'), origPlaceholder = document.getElementById('origPlaceholder');
-        const destPreview = document.getElementById('destPreview'), destPlaceholder = document.getElementById('destPlaceholder');
-        const widthInput = document.getElementById('widthInput'), heightInput = document.getElementById('heightInput');
-        const aspectRatioCheck = document.getElementById('aspectRatio'), targetSizeInput = document.getElementById('targetSize');
+        const fileInput = document.getElementById('fileInput'), dropZone = document.getElementById('dropZone'), dropZoneText = document.getElementById('dropZoneText');
+        const origPreview = document.getElementById('origPreview'), origPlaceholder = document.getElementById('origPlaceholder'), origPDFIcon = document.getElementById('origPDFIcon'), origPDFName = document.getElementById('origPDFName');
+        const destPreview = document.getElementById('destPreview'), destPlaceholder = document.getElementById('destPlaceholder'), destPDFIcon = document.getElementById('destPDFIcon');
+        const widthInput = document.getElementById('widthInput'), heightInput = document.getElementById('heightInput'), widthLabel = document.getElementById('widthLabel'), heightLabel = document.getElementById('heightLabel');
+        const aspectRatioCheck = document.getElementById('aspectRatio'), aspectRatioContainer = document.getElementById('aspectRatioContainer'), resizeTitle = document.getElementById('resizeTitle');
+        const targetSizeInput = document.getElementById('targetSize'), resTypeLabel = document.getElementById('resTypeLabel');
         const processBtn = document.getElementById('processBtn'), downloadBtn = document.getElementById('downloadBtn');
         const infoOrigSize = document.getElementById('infoOrigSize'), infoFinalSize = document.getElementById('infoFinalSize'), infoResolution = document.getElementById('infoResolution');
         const qualityVal = document.getElementById('qualityVal'), qualityBar = document.getElementById('qualityBar');
@@ -201,8 +193,8 @@
         dropZone.addEventListener('drop', (e) => { if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
         fileInput.addEventListener('change', (e) => { if(e.target.files.length) handleFile(e.target.files[0]); });
 
-        widthInput.addEventListener('input', () => { if (aspectRatioCheck.checked && originalImage && widthInput.value) heightInput.value = Math.round(widthInput.value / originalAspectRatio); });
-        heightInput.addEventListener('input', () => { if (aspectRatioCheck.checked && originalImage && heightInput.value) widthInput.value = Math.round(heightInput.value * originalAspectRatio); });
+        widthInput.addEventListener('input', () => { if (!isPDF && aspectRatioCheck.checked && originalImage && widthInput.value) heightInput.value = Math.round(widthInput.value / originalAspectRatio); });
+        heightInput.addEventListener('input', () => { if (!isPDF && aspectRatioCheck.checked && originalImage && heightInput.value) widthInput.value = Math.round(heightInput.value * originalAspectRatio); });
 
         function handleFile(file) {
             originalFileName = file.name.split('.').slice(0, -1).join('.');
@@ -210,92 +202,179 @@
             infoOrigSize.textContent = formatBytes(file.size);
             clearState();
 
-            const r = new FileReader();
-            r.onload = (e) => {
-                originalImage = new Image();
-                originalImage.onload = () => {
-                    originalAspectRatio = originalImage.width / originalImage.height;
-                    widthInput.value = originalImage.width; heightInput.value = originalImage.height;
-                    infoResolution.textContent = `${originalImage.width} × ${originalImage.height}`;
-                    origPreview.src = e.target.result;
-                    origPreview.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
+            if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
+                isPDF = true;
+                dropZoneText.textContent = "Drag & Drop PDF Here";
+                aspectRatioContainer.classList.add('hidden');
+                resizeTitle.textContent = "1. PDF Scaling (%)";
+                widthLabel.textContent = "Scale Width (%)"; heightLabel.textContent = "Scale Height (%)";
+                widthInput.value = "100"; heightInput.value = "100";
+                resTypeLabel.textContent = "Total Pages";
+                
+                origPDFName.textContent = file.name;
+                origPDFIcon.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
+                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+            } else {
+                isPDF = false;
+                dropZoneText.textContent = "Drag & Drop Image Here";
+                aspectRatioContainer.classList.remove('hidden');
+                resizeTitle.textContent = "1. Resize (Optional)";
+                widthLabel.textContent = "Width (px)"; heightLabel.textContent = "Height (px)";
+                resTypeLabel.textContent = "Resolution";
+                downloadBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Image`;
+
+                const r = new FileReader();
+                r.onload = (e) => {
+                    originalImage = new Image();
+                    originalImage.onload = () => {
+                        originalAspectRatio = originalImage.width / originalImage.height;
+                        widthInput.value = originalImage.width; heightInput.value = originalImage.height;
+                        infoResolution.textContent = `${originalImage.width} × ${originalImage.height}`;
+                        origPreview.src = e.target.result;
+                        origPreview.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
+                    };
+                    originalImage.src = e.target.result;
                 };
-                originalImage.src = e.target.result;
-            };
-            r.readAsDataURL(file);
+                r.readAsDataURL(file);
+            }
         }
 
         function clearState() {
-            origPreview.classList.add('hidden'); origPlaceholder.classList.remove('hidden');
-            destPreview.classList.add('hidden'); destPlaceholder.classList.remove('hidden');
+            origPreview.classList.add('hidden'); origPDFIcon.classList.add('hidden'); origPlaceholder.classList.remove('hidden');
+            destPreview.classList.add('hidden'); destPDFIcon.classList.add('hidden'); destPlaceholder.classList.remove('hidden');
             downloadBtn.disabled = true;
             qualityVal.textContent = "-"; qualityBar.style.width = "0%";
             downloadBtn.className = "w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase cursor-not-allowed";
         }
 
         processBtn.addEventListener('click', () => {
-            if (!originalImage) { alert("Please choose an image file first."); return; }
-            processBtn.textContent = "Processing..."; processBtn.disabled = true;
-            
-            setTimeout(() => {
-                let currentWidth = parseInt(widthInput.value) || originalImage.width;
-                let currentHeight = parseInt(heightInput.value) || originalImage.height;
-                const unit = document.querySelector('input[name="unit"]:checked').value;
-                let targetSizeBytes = (parseFloat(targetSizeInput.value) || 100) * 1024;
-                if (unit === 'MB') targetSizeBytes *= 1024;
+            if (isPDF && fileInput.files[0]) {
+                processBtn.textContent = "Optimizing PDF..."; processBtn.disabled = true;
+                setTimeout(runFastPdfCompress, 50);
+            } else if (!isPDF && originalImage) {
+                processBtn.textContent = "Compressing Image..."; processBtn.disabled = true;
+                setTimeout(runFastImageCompress, 50);
+            } else {
+                alert("Please choose a file first.");
+            }
+        });
 
-                const canvas = document.createElement('canvas');
-                let ctx = canvas.getContext('2d');
-                let minQuality = 0.02, maxQuality = 0.98, optimalBlob = null, loop = 0;
+        function runFastImageCompress() {
+            let currentWidth = parseInt(widthInput.value) || originalImage.width;
+            let currentHeight = parseInt(heightInput.value) || originalImage.height;
+            const unit = document.querySelector('input[name="unit"]:checked').value;
+            let targetSizeBytes = (parseFloat(targetSizeInput.value) || 100) * 1024;
+            if (unit === 'MB') targetSizeBytes *= 1024;
 
-                function binarySearch() {
-                    canvas.width = currentWidth; canvas.height = currentHeight;
-                    ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
-                    let q = (minQuality + maxQuality) / 2;
+            const canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+            let minQuality = 0.02, maxQuality = 0.98, optimalBlob = null, loop = 0;
 
-                    canvas.toBlob((blob) => {
-                        if (!blob) return;
-                        loop++;
-                        if (blob.size <= targetSizeBytes) {
-                            if (!optimalBlob || blob.size > optimalBlob.size) optimalBlob = blob;
-                            minQuality = q;
-                        } else {
-                            maxQuality = q;
-                        }
+            function binarySearch() {
+                canvas.width = currentWidth; canvas.height = currentHeight;
+                ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
+                let q = (minQuality + maxQuality) / 2;
+                let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
 
-                        if (loop < 7) {
+                canvas.toBlob((blob) => {
+                    if (!blob) return;
+                    loop++;
+                    if (blob.size <= targetSizeBytes) {
+                        if (!optimalBlob || blob.size > optimalBlob.size) optimalBlob = blob;
+                        minQuality = q;
+                    } else {
+                        maxQuality = q;
+                    }
+
+                    if (loop < 7) {
+                        binarySearch();
+                    } else {
+                        if (!optimalBlob || optimalBlob.size > targetSizeBytes) {
+                            currentWidth = Math.round(currentWidth * 0.8); currentHeight = Math.round(currentHeight * 0.8);
+                            minQuality = 0.02; maxQuality = 0.9; loop = 0;
                             binarySearch();
                         } else {
-                            if (!optimalBlob || optimalBlob.size > targetSizeBytes) {
-                                currentWidth = Math.round(currentWidth * 0.8); currentHeight = Math.round(currentHeight * 0.8);
-                                minQuality = 0.02; maxQuality = 0.9; loop = 0;
-                                binarySearch();
-                            } else {
-                                processedBlob = optimalBlob;
-                                infoFinalSize.textContent = formatBytes(optimalBlob.size);
-                                infoResolution.textContent = `${currentWidth} × ${currentHeight}`;
-                                qualityVal.textContent = "100% Target Met";
-                                qualityBar.style.width = "100%";
-                                
-                                destPreview.src = URL.createObjectURL(optimalBlob);
-                                destPreview.classList.remove('hidden'); destPlaceholder.classList.add('hidden');
-
-                                downloadBtn.disabled = false;
-                                downloadBtn.className = "w-full bg-transparent border border-[#ff2244] text-[#ff2244] font-bold py-2 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase cursor-pointer hover:bg-[#ff2244]/10 transition-all drop-shadow-[0_0_8px_rgba(255,34,68,0.3)]";
-                                processBtn.textContent = "Resize & Compress"; processBtn.disabled = false;
-                            }
+                            finalizeAsset(optimalBlob, false, `${currentWidth} × ${currentHeight}`);
                         }
-                    }, 'image/jpeg', q);
+                    }
+                }, exportMime, q);
+            }
+            binarySearch();
+        }
+
+        async function runFastPdfCompress() {
+            try {
+                const targetSizeVal = parseFloat(targetSizeInput.value) || 100;
+                const unit = document.querySelector('input[name="unit"]:checked').value;
+                let targetSizeBytes = targetSizeVal * 1024;
+                if (unit === 'MB') targetSizeBytes *= 1024;
+
+                const file = fileInput.files[0];
+                const arrayBuffer = await file.arrayBuffer();
+                const srcDoc = await window.PDFLib.PDFDocument.load(arrayBuffer);
+                const currentBytes = file.size;
+
+                // Scale factor calculation based on scale percentage fields or automatic shrinker
+                let scaleX = (parseFloat(widthInput.value) || 100) / 100;
+                let scaleY = (parseFloat(heightInput.value) || 100) / 100;
+
+                // If file size exceeds target, strictly scale down automatically
+                if (currentBytes > targetSizeBytes) {
+                    const autoScale = Math.min(0.9, Math.sqrt(targetSizeBytes / currentBytes));
+                    scaleX *= autoScale;
+                    scaleY *= autoScale;
                 }
-                binarySearch();
-            }, 50);
-        });
+
+                const outDoc = await window.PDFLib.PDFDocument.create();
+                const copiedPages = await outDoc.copyPages(srcDoc, srcDoc.getPageIndices());
+                
+                copiedPages.forEach(page => {
+                    const { width, height } = page.getSize();
+                    page.setSize(width * scaleX, height * scaleY);
+                    page.scale(scaleX, scaleY);
+                    outDoc.addPage(page);
+                });
+
+                const finalBytes = await outDoc.save({ useObjectStreams: true });
+                processedBlob = new Blob([finalBytes], { type: "application/pdf" });
+
+                finalizeAsset(processedBlob, true, `${copiedPages.length} Pages`);
+            } catch (err) {
+                alert("Error during PDF Compression: " + err.message);
+                resetBtn();
+            }
+        }
+
+        function finalizeAsset(blob, isPdfAsset, resText) {
+            processedBlob = blob;
+            infoFinalSize.textContent = formatBytes(blob.size);
+            infoResolution.textContent = resText;
+            qualityVal.textContent = "100% Target Met";
+            qualityBar.style.width = "100%";
+
+            if (isPdfAsset) {
+                destPDFIcon.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPreview.classList.add('hidden');
+            } else {
+                destPreview.src = URL.createObjectURL(blob);
+                destPreview.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPDFIcon.classList.add('hidden');
+            }
+            
+            downloadBtn.disabled = false;
+            downloadBtn.className = "w-full bg-transparent border border-[#ff2244] text-[#ff2244] font-bold py-2 rounded-xl flex items-center justify-center gap-1.5 text-[11px] tracking-wider uppercase cursor-pointer hover:bg-[#ff2244]/10 transition-all drop-shadow-[0_0_8px_rgba(255,34,68,0.3)]";
+            resetBtn();
+        }
+
+        function resetBtn() {
+            processBtn.textContent = "Resize & Compress Instantly";
+            processBtn.disabled = false;
+        }
 
         downloadBtn.addEventListener('click', () => {
             if (!processedBlob) return;
+            const ext = isPDF ? 'pdf' : 'jpg';
             const l = document.createElement('a');
             l.href = URL.createObjectURL(processedBlob);
-            l.download = `${originalFileName}_ghost.${originalMimeType.split('/')[1] || 'jpg'}`;
+            l.download = `${originalFileName}_ghost.${ext}`;
             l.click();
         });
 
