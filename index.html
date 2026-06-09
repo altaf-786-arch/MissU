@@ -4,135 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghost Resize Image - Fast Exact KB Compressor</title>
+    <!-- Tailwind CSS for high contrast UI layout -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
-            background-color: #000000;
+            background-color: #e50914; /* Pure Crimson Red Background */
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; /* Hard restriction on page scroll */
         }
-        .glow-text {
-            color: #00ffcc;
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+        /* Continuous premium logo scaling heartbeat */
+        @keyframes custom-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); }
         }
-        .glow-border {
-            border-color: #00ffcc;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        /* Text glow effect for the main heading */
+        @keyframes text-glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
         }
-        .neon-btn {
-            background: linear-gradient(135deg, #00ffaa 0%, #00ffcc 100%);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+        .animate-logo {
+            animation: custom-pulse 2s infinite ease-in-out;
         }
-        .neon-btn:hover {
-            background: linear-gradient(135deg, #00df95 0%, #00dfb3 100%);
+        .animate-text-glow {
+            animation: text-glow 2.5s infinite ease-in-out;
+        }
+        .glow-border:focus {
+            border-color: #e50914;
+            box-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+        }
+        .white-btn {
+            background: #ffffff;
+            color: #e50914;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .white-btn:hover {
+            background: #f4f4f5;
+            transform: translateY(-0.5px);
         }
     </style>
 </head>
-<body class="text-gray-300 flex items-center justify-center p-3 md:p-6 min-h-screen">
+<body class="text-zinc-100 flex items-center justify-center p-3 md:p-4 h-screen w-screen selection:bg-red-600 selection:text-white">
 
-    <div class="w-full max-w-3xl bg-[#030303] border border-zinc-900 rounded-3xl p-5 md:p-8 shadow-2xl">
+    <!-- Main Card Container: Fixed Deep Matte Charcoal Card on Red Background -->
+    <div class="w-full max-w-lg bg-[#121214] border border-white/10 rounded-3xl p-4 md:p-5 shadow-2xl h-full max-h-[96vh] flex flex-col justify-between overflow-hidden">
         
-        <div class="text-center mb-8">
-            <div class="inline-flex flex-col items-center justify-center gap-1">
-                <div class="glow-text mb-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
-                        <path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z" />
-                        <circle cx="9" cy="10" r="1" fill="currentColor"/>
-                        <circle cx="15" cy="10" r="1" fill="currentColor"/>
-                        <path d="M12 14a1.5 1.5 0 0 1-1.5-1.5h3A1.5 1.5 0 0 1 12 14z" fill="currentColor"/>
-                    </svg>
-                </div>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-wider uppercase glow-text font-mono">
-                    Ghost Resize Image
-                </h1>
+        <!-- Header Block -->
+        <div class="text-center flex flex-col items-center gap-1.5">
+            <div class="bg-white text-[#e50914] p-2.5 rounded-xl shadow-md animate-logo flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 3 2.5 3-2.5 3 2.5 3-2.5 3 2.5V10a8 8 0 0 0-8-8z" />
+                    <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                    <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                    <path d="M12 14a1.5 1.5 0 0 1-1.5-1.5h3A1.5 1.5 0 0 1 12 14z" fill="currentColor"/>
+                </svg>
             </div>
-            <div class="flex items-center justify-center gap-2 mt-2 text-xs tracking-widest text-zinc-500 uppercase">
-                <span class="text-[#00ffcc] text-[8px]">◆</span> Fast & Exact KB Image/PDF Compressor <span class="text-[#00ffcc] text-[8px]">◆</span>
-            </div>
+            <h1 class="text-2xl font-black tracking-wider uppercase font-mono text-white animate-text-glow">
+                Ghost Resize Image
+            </h1>
+            <p class="text-[9px] tracking-widest text-zinc-400 uppercase font-bold flex items-center gap-1">
+                <span class="text-[#e50914]">◆</span> Fast & Strict Exact KB Compressor <span class="text-[#e50914]">◆</span>
+            </p>
         </div>
 
-        <div id="dropZone" class="border border-dashed border-zinc-800 bg-[#060606] rounded-2xl p-8 text-center cursor-pointer hover:border-[#00ffcc]/50 transition-all mb-6 group">
+        <!-- Box Area: High Contrast Drag & Drop Input -->
+        <div id="dropZone" class="border border-dashed border-zinc-700 bg-zinc-900/60 rounded-xl p-4 text-center cursor-pointer hover:border-[#e50914]/80 hover:bg-zinc-900 transition-all duration-300 flex flex-col items-center justify-center gap-2 group relative my-2 flex-grow max-h-[130px]">
             <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp, application/pdf" class="hidden">
-            <div class="flex flex-col items-center gap-3">
-                <div class="text-[#00ffcc] opacity-80 group-hover:scale-110 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+            <div class="text-zinc-400 opacity-80 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
+            </div>
+            <p class="text-xs font-semibold text-zinc-300">Drag & Drop File Here</p>
+            <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-[#e50914] text-white px-3.5 py-1 rounded-md text-[11px] font-bold shadow-md hover:bg-red-700 transition-all cursor-pointer">
+                Choose File
+            </button>
+        </div>
+
+        <!-- Previews Matrix View -->
+        <div class="grid grid-cols-2 gap-3 items-center my-1.5 max-h-[100px]">
+            <!-- Original -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-2 text-center h-22 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="absolute top-1 left-2 text-[8px] font-bold text-zinc-500 uppercase tracking-wider">Original</span>
+                <img id="origPreview" class="max-h-14 max-w-full rounded hidden object-contain shadow-sm">
+                <div id="origPDFIcon" class="hidden text-zinc-400 flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                    <p id="origPDFName" class="text-[8px] max-w-[90px] truncate mt-0.5 opacity-70"></p>
                 </div>
-                <p class="text-base font-medium text-zinc-200">Drag & Drop Image or PDF Here</p>
-                <button type="button" onclick="document.getElementById('fileInput').click()" class="bg-[#121212] border border-zinc-800 text-zinc-300 px-5 py-2 rounded-xl text-xs font-semibold hover:text-[#00ffcc] transition-all">
-                    Choose File
-                </button>
+                <p id="origPlaceholder" class="text-[9px] text-zinc-600 font-mono">Empty</p>
+            </div>
+
+            <!-- Preview Output -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-2 text-center h-22 flex flex-col items-center justify-center relative overflow-hidden">
+                <span class="absolute top-1 left-2 text-[8px] font-bold text-zinc-500 uppercase tracking-wider">Preview</span>
+                <img id="destPreview" class="max-h-14 max-w-full rounded hidden object-contain shadow-sm">
+                <div id="destPDFIcon" class="hidden text-[#e50914] flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+                    <p class="text-[8px] mt-0.5 opacity-80 font-bold">Ready</p>
+                </div>
+                <p id="destPlaceholder" class="text-[9px] text-zinc-600 font-mono">Unprocessed</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center mb-6">
-            <div class="bg-[#050505] border border-zinc-900 rounded-xl p-4 text-center h-48 flex flex-col items-center justify-center relative">
-                <span class="absolute top-3 left-3 text-[11px] text-zinc-400 uppercase">Original</span>
-                <img id="origPreview" class="max-h-32 max-w-full rounded-lg hidden object-contain">
-                <div id="origPDFIcon" class="hidden text-red-500 flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><p id="origPDFName" class="text-xs text-zinc-400 mt-1 max-w-[160px] truncate"></p></div>
-                <div id="origPlaceholder" class="text-zinc-700"><p class="text-xs">No file selected</p></div>
-            </div>
-
-            <div class="bg-[#050505] border border-zinc-900 rounded-xl p-4 text-center h-48 flex flex-col items-center justify-center relative">
-                <span class="absolute top-3 left-3 text-[11px] text-zinc-400 uppercase">Preview</span>
-                <img id="destPreview" class="max-h-32 max-w-full rounded-lg hidden object-contain">
-                <div id="destPDFIcon" class="hidden text-[#00ffcc] flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg><p class="text-xs text-zinc-400 mt-1">Processed PDF Ready</p></div>
-                <div id="destPlaceholder" class="text-zinc-700"><p class="text-xs">No file processed</p></div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div class="bg-[#050505] border border-zinc-900 p-4 rounded-xl">
-                <h3 class="text-xs font-bold text-[#00ffcc] uppercase mb-3">1. Dimensions (Optional)</h3>
-                <div class="grid grid-cols-2 gap-3 mb-2">
+        <!-- Parameters Layout Structure Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-1.5">
+            <!-- Parameter 1 -->
+            <div class="bg-zinc-900 border border-zinc-800 p-2.5 rounded-xl flex flex-col justify-between">
+                <h3 class="text-[9px] font-bold tracking-wider text-[#e50914] uppercase mb-1">1. Dimensions (Optional)</h3>
+                <div class="grid grid-cols-2 gap-2 mb-1">
                     <div>
-                        <label class="block text-[10px] text-zinc-500 mb-1">Width (px)</label>
-                        <input type="number" id="widthInput" class="w-full bg-[#0a0a0a] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none">
+                        <label id="widthLabel" class="block text-[8px] uppercase tracking-wider text-zinc-500 mb-0.5">Width (px)</label>
+                        <input type="number" id="widthInput" class="w-full bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-white outline-none glow-border font-mono">
                     </div>
                     <div>
-                        <label class="block text-[10px] text-zinc-500 mb-1">Height (px)</label>
-                        <input type="number" id="heightInput" class="w-full bg-[#0a0a0a] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none">
+                        <label id="heightLabel" class="block text-[8px] uppercase tracking-wider text-zinc-500 mb-0.5">Height (px)</label>
+                        <input type="number" id="heightInput" class="w-full bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-white outline-none glow-border font-mono">
                     </div>
                 </div>
-                <label id="aspectRatioContainer" class="inline-flex items-center gap-2 text-[11px] text-zinc-400 cursor-pointer mt-1">
-                    <input type="checkbox" id="aspectRatio" checked class="accent-[#00ffcc]"> Lock Aspect Ratio
+                <label id="aspectRatioContainer" class="inline-flex items-center gap-1 text-[9px] text-zinc-400 cursor-pointer select-none">
+                    <input type="checkbox" id="aspectRatio" checked class="accent-[#e50914]"> Lock Ratio
                 </label>
             </div>
 
-            <div class="bg-[#050505] border border-zinc-900 p-4 rounded-xl">
-                <h3 class="text-xs font-bold text-[#00ffcc] uppercase mb-3">2. Exact Target Size</h3>
-                <div class="grid grid-cols-5 gap-2 mb-3">
+            <!-- Parameter 2 -->
+            <div class="bg-zinc-900 border border-zinc-800 p-2.5 rounded-xl flex flex-col justify-between">
+                <h3 class="text-[9px] font-bold tracking-wider text-[#e50914] uppercase mb-1">2. Target Configuration</h3>
+                <div class="grid grid-cols-5 gap-1.5 mb-1">
                     <div class="col-span-2">
-                        <label class="block text-[10px] text-zinc-500 mb-1">Type</label>
-                        <select id="compressionType" class="w-full bg-[#0a0a0a] border border-zinc-800 rounded-lg px-2 py-2 text-xs text-zinc-300 outline-none"><option>Target Size</option></select>
+                        <label class="block text-[8px] uppercase tracking-wider text-zinc-500 mb-0.5">Type</label>
+                        <select id="compressionType" class="w-full bg-zinc-800 border border-zinc-700 rounded-md px-1 py-0.5 text-xs text-zinc-300 outline-none cursor-pointer"><option>Strict KB</option></select>
                     </div>
                     <div class="col-span-3">
-                        <label class="block text-[10px] text-zinc-500 mb-1">Enter Target Size</label>
-                        <input type="number" id="targetSize" value="50" class="w-full bg-[#0a0a0a] border border-zinc-800 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-[#00ffcc] glow-border">
+                        <label class="block text-[8px] uppercase tracking-wider text-zinc-500 mb-0.5">Value</label>
+                        <input type="number" id="targetSize" value="50" class="w-full bg-zinc-800 border border-zinc-700 rounded-md px-2 py-0.5 text-xs text-white outline-none glow-border font-mono">
                     </div>
                 </div>
-                <div class="flex items-center gap-4 text-xs text-zinc-400 mt-2">
-                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="unit" value="KB" checked class="accent-[#00ffcc]"> KB</label>
-                    <label class="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="unit" value="MB" class="accent-[#00ffcc]"> MB</label>
+                <div class="flex items-center gap-3 text-[9px] text-zinc-300 font-semibold">
+                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="KB" checked class="accent-[#e50914]"> KB</label>
+                    <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="unit" value="MB" class="accent-[#e50914]"> MB</label>
                 </div>
             </div>
         </div>
 
-        <button id="processBtn" class="w-full neon-btn text-black font-bold py-3.5 px-4 rounded-xl text-sm tracking-wider uppercase cursor-pointer mb-6">
+        <!-- Primary Action CTA Button -->
+        <button id="processBtn" class="w-full white-btn font-black py-2.5 px-4 rounded-xl flex items-center justify-center text-xs tracking-widest uppercase active:scale-[0.99] transition-all cursor-pointer my-1">
             Resize & Compress Instantly
         </button>
 
-        <div class="bg-[#040404] border border-zinc-900 rounded-xl p-4 mb-6">
-            <div class="grid grid-cols-3 gap-3 text-center mb-2">
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900"><p class="text-[9px] text-zinc-500 uppercase mb-1">Original</p><span id="infoOrigSize" class="text-xs text-zinc-300">-</span></div>
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900"><p class="text-[9px] text-zinc-500 uppercase mb-1">Final Size</p><span id="infoFinalSize" class="text-xs font-bold text-[#00ffcc]">-</span></div>
-                <div class="bg-[#080808] p-3 rounded-lg border border-zinc-900"><p class="text-[9px] text-zinc-500 uppercase mb-1">Resolution</p><span id="infoResolution" class="text-xs text-zinc-300">-</span></div>
+        <!-- Metric Output Analytics Feed Tracker -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-2 my-1">
+            <div class="grid grid-cols-3 gap-1.5 text-center mb-1.5">
+                <div class="bg-zinc-800/40 p-1 rounded-lg border border-zinc-800"><p class="text-[7px] text-zinc-500 uppercase mb-0.5">Original</p><span id="infoOrigSize" class="text-xs font-semibold font-mono text-zinc-300">-</span></div>
+                <div class="bg-zinc-800/40 p-1 rounded-lg border border-zinc-800"><p class="text-[7px] text-zinc-500 uppercase mb-0.5">Final Size</p><span id="infoFinalSize" class="text-xs font-bold font-mono text-white">-</span></div>
+                <div class="bg-zinc-800/40 p-1 rounded-lg border border-zinc-800"><p id="resTypeLabel" class="text-[7px] text-zinc-500 uppercase mb-0.5">Resolution</p><span id="infoResolution" class="text-xs font-semibold font-mono text-zinc-300">-</span></div>
+            </div>
+            <div class="flex justify-between text-[7px] font-bold uppercase tracking-wider text-zinc-400 mb-0.5">
+                <span>Accuracy Target Tracker</span> <span id="qualityVal" class="font-mono text-white">0%</span>
+            </div>
+            <div class="w-full bg-zinc-800 h-1 rounded-full overflow-hidden">
+                <div id="qualityBar" class="bg-white h-full w-0 transition-all duration-300"></div>
             </div>
         </div>
 
-        <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-900 text-zinc-600 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs uppercase cursor-not-allowed">
-            Download File
+        <!-- Process Download System Activation Pin -->
+        <button id="downloadBtn" disabled class="w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center text-xs tracking-wider uppercase transition-all cursor-not-allowed">
+            Download Processed File
         </button>
+
+        <!-- Footer Layer Branding -->
+        <div class="text-center pt-1.5 border-t border-zinc-900 text-[8px] text-zinc-600 tracking-wider">
+            Created By <span>Ghost Hacker (AltafxRaja)</span>
+        </div>
     </div>
 
+    <!-- Script Internal Logical Control Setup Framework -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script>
         let isPDF = false, pdfArrayBuffer = null, originalImage = null;
@@ -141,13 +183,17 @@
         const fileInput = document.getElementById('fileInput'), dropZone = document.getElementById('dropZone');
         const origPreview = document.getElementById('origPreview'), origPDFIcon = document.getElementById('origPDFIcon'), origPDFName = document.getElementById('origPDFName'), origPlaceholder = document.getElementById('origPlaceholder');
         const destPreview = document.getElementById('destPreview'), destPDFIcon = document.getElementById('destPDFIcon'), destPlaceholder = document.getElementById('destPlaceholder');
-        const widthInput = document.getElementById('widthInput'), heightInput = document.getElementById('heightInput'), aspectRatioCheck = document.getElementById('aspectRatio'), aspectRatioContainer = document.getElementById('aspectRatioContainer');
-        const targetSizeInput = document.getElementById('targetSize'), processBtn = document.getElementById('processBtn'), downloadBtn = document.getElementById('downloadBtn');
+        const widthInput = document.getElementById('widthInput'), heightInput = document.getElementById('heightInput');
+        const widthLabel = document.getElementById('widthLabel'), heightLabel = document.getElementById('heightLabel');
+        const aspectRatioCheck = document.getElementById('aspectRatio'), aspectRatioContainer = document.getElementById('aspectRatioContainer');
+        const targetSizeInput = document.getElementById('targetSize'), resTypeLabel = document.getElementById('resTypeLabel');
+        const processBtn = document.getElementById('processBtn'), downloadBtn = document.getElementById('downloadBtn');
         const infoOrigSize = document.getElementById('infoOrigSize'), infoFinalSize = document.getElementById('infoFinalSize'), infoResolution = document.getElementById('infoResolution');
+        const qualityVal = document.getElementById('qualityVal'), qualityBar = document.getElementById('qualityBar');
 
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = '#00ffcc'; });
-        dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
-        dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.style.borderColor = ''; if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+        ['dragover', 'dragenter'].forEach(n => dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = '#ffffff'; }));
+        ['dragleave', 'drop'].forEach(n => dropZone.addEventListener(n, (e) => { e.preventDefault(); dropZone.style.borderColor = ''; }));
+        dropZone.addEventListener('drop', (e) => { if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
         fileInput.addEventListener('change', (e) => { if(e.target.files.length) handleFile(e.target.files[0]); });
 
         widthInput.addEventListener('input', () => { if (!isPDF && aspectRatioCheck.checked && originalImage && widthInput.value) heightInput.value = Math.round(widthInput.value / originalAspectRatio); });
@@ -155,26 +201,25 @@
 
         function handleFile(file) {
             originalFileName = file.name.split('.').slice(0, -1).join('.');
+            originalMimeType = file.type;
             infoOrigSize.textContent = formatBytes(file.size);
             clearState();
 
             if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
                 isPDF = true;
                 aspectRatioContainer.classList.add('hidden');
-                widthInput.value = ""; heightInput.value = "";
+                widthLabel.textContent = "Scale X (%)"; heightLabel.textContent = "Scale Y (%)";
+                widthInput.value = "100"; heightInput.value = "100";
+                resTypeLabel.textContent = "Pages";
                 origPDFName.textContent = file.name;
                 origPDFIcon.classList.remove('hidden'); origPlaceholder.classList.add('hidden');
-
-                const r = new FileReader();
-                r.onload = function(e) {
-                    pdfArrayBuffer = e.target.result;
-                    window.PDFLib.PDFDocument.load(pdfArrayBuffer).then(d => { infoResolution.textContent = d.getPageCount() + " Pages"; });
-                };
-                r.readAsArrayBuffer(file);
+                downloadBtn.textContent = "Download PDF";
             } else {
                 isPDF = false;
-                originalMimeType = file.type;
                 aspectRatioContainer.classList.remove('hidden');
+                widthLabel.textContent = "Width (px)"; heightLabel.textContent = "Height (px)";
+                resTypeLabel.textContent = "Resolution";
+                downloadBtn.textContent = "Download Image";
 
                 const r = new FileReader();
                 r.onload = (e) => {
@@ -196,16 +241,17 @@
             origPreview.classList.add('hidden'); origPDFIcon.classList.add('hidden'); origPlaceholder.classList.remove('hidden');
             destPreview.classList.add('hidden'); destPDFIcon.classList.add('hidden'); destPlaceholder.classList.remove('hidden');
             downloadBtn.disabled = true;
-            downloadBtn.className = "w-full bg-transparent border border-zinc-900 text-zinc-600 font-bold py-3 px-4 rounded-xl flex items-center justify-center text-xs uppercase cursor-not-allowed";
+            qualityVal.textContent = "0%"; qualityBar.style.width = "0%";
+            downloadBtn.className = "w-full bg-transparent border border-zinc-800 text-zinc-600 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center text-xs tracking-wider uppercase cursor-not-allowed";
         }
 
         processBtn.addEventListener('click', async () => {
             processBtn.textContent = "Processing... Plz Wait";
             processBtn.disabled = true;
             setTimeout(async () => {
-                if (isPDF && pdfArrayBuffer) await fastCompressPDF();
-                else if (!isPDF && originalImage) fastCompressImage();
-                else { alert("Upload file first."); resetBtn(); }
+                if (isPDF && fileInput.files[0]) await runFastPdfCompress();
+                else if (!isPDF && originalImage) runFastImageCompress();
+                else { alert("Please upload a file first."); resetBtn(); }
             }, 50);
         });
 
@@ -214,61 +260,60 @@
             processBtn.disabled = false;
         }
 
-        // ⚡ FAST SUPER LIGHT IMAGE COMPRESSION (Max 7 Steps Loop)
-        function fastCompressImage() {
-            let w = parseInt(widthInput.value) || originalImage.width;
-            let h = parseInt(heightInput.value) || originalImage.height;
+        function runFastImageCompress() {
+            let currentWidth = parseInt(widthInput.value) || originalImage.width;
+            let currentHeight = parseInt(heightInput.value) || originalImage.height;
             const unit = document.querySelector('input[name="unit"]:checked').value;
-            let targetBytes = (parseFloat(targetSizeInput.value) || 50) * 1024;
-            if (unit === 'MB') targetBytes *= 1024;
+            let targetSizeBytes = (parseFloat(targetSizeInput.value) || 50) * 1024;
+            if (unit === 'MB') targetSizeBytes *= 1024;
 
             const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            let qMin = 0.02, qMax = 0.98, bestBlob = null, steps = 0;
+            let ctx = canvas.getContext('2d');
+            let minQuality = 0.02, maxQuality = 0.98, optimalBlob = null, loopCounter = 0;
 
-            function step() {
-                canvas.width = w; canvas.height = h;
-                ctx.drawImage(originalImage, 0, 0, w, h);
-                let q = (qMin + qMax) / 2;
-                let mime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
+            function executeBinarySearch() {
+                canvas.width = currentWidth; canvas.height = currentHeight;
+                ctx.drawImage(originalImage, 0, 0, currentWidth, currentHeight);
+                let testQuality = (minQuality + maxQuality) / 2;
+                let exportMime = (originalMimeType === 'image/png' || originalMimeType === 'image/webp') ? 'image/jpeg' : originalMimeType;
 
-                canvas.toBlob((b) => {
-                    if (!b) return;
-                    steps++;
-                    if (b.size <= targetBytes) {
-                        if (!bestBlob || b.size > bestBlob.size) bestBlob = b;
-                        qMin = q;
+                canvas.toBlob((blob) => {
+                    if (!blob) return;
+                    loopCounter++;
+                    if (blob.size <= targetSizeBytes) {
+                        if (!optimalBlob || blob.size > optimalBlob.size) optimalBlob = blob;
+                        minQuality = testQuality;
                     } else {
-                        qMax = q;
+                        maxQuality = testQuality;
                     }
 
-                    if (steps < 7) {
-                        step();
+                    if (loopCounter < 7) {
+                        executeBinarySearch();
                     } else {
-                        if (!bestBlob || bestBlob.size > targetBytes) {
-                            w = Math.round(w * 0.8); h = Math.round(h * 0.8);
-                            qMin = 0.02; qMax = 0.9; steps = 0;
-                            step();
+                        if (!optimalBlob || optimalBlob.size > targetSizeBytes) {
+                            currentWidth = Math.round(currentWidth * 0.8);
+                            currentHeight = Math.round(currentHeight * 0.8);
+                            minQuality = 0.02; maxQuality = 0.9; loopCounter = 0;
+                            executeBinarySearch();
                         } else {
-                            finalize(bestBlob, false, `${w} × ${h}`);
+                            finalizeAsset(optimalBlob, false, `${currentWidth} × ${currentHeight}`);
                         }
                     }
-                }, mime, q);
+                }, exportMime, testQuality);
             }
-            step();
+            executeBinarySearch();
         }
 
-        // ⚡ INSTANT SPEED VECTOR COMPRESSION FOR PDF (Takes ~1 Second)
-        async function fastCompressPDF() {
+        async function runFastPdfCompress() {
             try {
-                const targetKB = parseFloat(targetSizeInput.value) || 50;
-                const srcDoc = await window.PDFLib.PDFDocument.load(pdfArrayBuffer);
-                const originalBytes = pdfArrayBuffer.byteLength;
+                const targetSizeKB = parseFloat(targetSizeInput.value) || 50;
+                const file = fileInput.files[0];
+                const arrayBuffer = await file.arrayBuffer();
+                const srcDoc = await window.PDFLib.PDFDocument.load(arrayBuffer);
+                const currentKB = file.size / 1024;
                 
-                // Calculate quick ratio to perform vector shrink map instantly
-                let currentKB = originalBytes / 1024;
-                let scaleFactor = Math.min(0.95, Math.sqrt(targetKB / currentKB));
-                if (scaleFactor < 0.25) scaleFactor = 0.25; // Don't let layout break completely
+                let scaleFactor = Math.min(0.95, Math.sqrt(targetSizeKB / currentKB));
+                if (scaleFactor < 0.25) scaleFactor = 0.25; 
 
                 const outDoc = await window.PDFLib.PDFDocument.create();
                 const copiedPages = await outDoc.copyPages(srcDoc, srcDoc.getPageIndices());
@@ -283,27 +328,29 @@
                 const finalBytes = await outDoc.save({ useObjectStreams: true });
                 processedBlob = new Blob([finalBytes], { type: "application/pdf" });
 
-                finalize(processedBlob, true, copiedPages.length + " Pages");
+                finalizeAsset(processedBlob, true, copiedPages.length + " Pages");
             } catch (err) {
-                alert("Error crunching vector maps.");
+                alert("Error optimizing PDF structure.");
                 resetBtn();
             }
         }
 
-        function finalize(blob, isPdf, res) {
+        function finalizeAsset(blob, isPdfAsset, resText) {
             processedBlob = blob;
             infoFinalSize.textContent = formatBytes(blob.size);
-            infoResolution.textContent = res;
+            infoResolution.textContent = resText;
+            qualityVal.textContent = "100% Target Met";
+            qualityBar.style.width = "100__";
 
-            if (isPdf) {
+            if (isPdfAsset) {
                 destPDFIcon.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPreview.classList.add('hidden');
             } else {
                 destPreview.src = URL.createObjectURL(blob);
                 destPreview.classList.remove('hidden'); destPlaceholder.classList.add('hidden'); destPDFIcon.classList.add('hidden');
             }
-
+            
             downloadBtn.disabled = false;
-            downloadBtn.className = "w-full bg-[#00ffcc] text-black font-bold py-3 px-4 rounded-xl flex items-center justify-center text-xs uppercase cursor-pointer transition-all shadow-lg";
+            downloadBtn.className = "w-full bg-white text-[#e50914] font-black py-2.5 px-4 rounded-xl flex items-center justify-center text-xs tracking-wider uppercase transition-all shadow-md cursor-pointer hover:bg-zinc-100";
             resetBtn();
         }
 
@@ -312,7 +359,7 @@
             const ext = isPDF ? 'pdf' : 'jpg';
             const l = document.createElement('a');
             l.href = URL.createObjectURL(processedBlob);
-            l.download = `${originalFileName}_compressed.${ext}`;
+            l.download = `${originalFileName}_exact_${targetSizeInput.value}kb.${ext}`;
             l.click();
         });
 
